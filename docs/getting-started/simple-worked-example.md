@@ -45,7 +45,7 @@ Let's say we want to represent the country with its flag using some images we ha
 
 ```dax
 <HTML> Country Flag 48px =
-   "<img height='48' src='https://www.html-content.com/images/flags/"
+   "<img height='48' src='https://html-content.com/img/flags/"
         & Demographic[Country Code]
         & ".png'>"
 ```
@@ -67,7 +67,7 @@ Because single quotes are valid in the W3C HTML specification, I'll be using thi
 
 ```dax
 <HTML> Country Flag 48px =
-   "<img height='48' src='https://www.html-content.com/images/flags/"
+   "<img height='48' src='https://html-content.com/img/flags/"
        & Demographic[Country Code]
        & "/flat/48.png"">"
 ```
