@@ -12,9 +12,6 @@ The **Content formatting** property menu can be used to manage some aspects of t
 
 ### Renderer
 
-:::note This Change is Pending Approval and Deployment of Version 1.6
-:::
-
 You have a choice of renderer for your content, either **HTML** or **Markdown**.
 
 - **HTML** is the default and is the typical renderer that most people will need.

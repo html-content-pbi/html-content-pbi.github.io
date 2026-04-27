@@ -90,7 +90,7 @@ If we add this measure, we get some context-awareness as we click on the table's
 
 Or, we could add the `[Country]` column to the **Granularity** data role and get one bar per row, without including that value in our output:
 
-![contextual-measure-with-granularity.gif](./images/data-roles/contextual-measure-with-granularity.gif "Adding a a column to the Granularity data role to create extra row context.")
+![contextual-measure-with-granularity.gif](./images/data-roles/contextual-measure-with-granularity.gif "Adding a column to the Granularity data role to create extra row context.")
 
 :::tip Granularity is as far as you want to go
 Multiple columns can be added to **Granularity** if you want to further extend the row context to suit your use case.

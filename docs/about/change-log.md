@@ -6,17 +6,27 @@ slug: /change-log
 
 # Change Log
 
-## 1.6.0 (Pending Approval)
-
-:::info Pending Approval
-This is currently being submitted to AppSource. We'll remove this message when it has been approved.
-:::
+## 1.6.0 (2025-04-03)
 
 ### Markdown Rendering
 
-You can now specify whether to render your content using HTML (Default) or Markdown. Refer to the [Content Formatting](properties-content-formatting#renderer) page to read more about this.
+You can now specify whether to render your content using HTML (default) or Markdown. Refer to the [Content Formatting](properties-content-formatting#renderer) page to read more about this.
 
-### Bugs Fixed
+### HTML Content (lite)-Specific Changes (2026-04-25)
+
+<!-- :::info Pending Approval
+**HTML Content (lite)** is still under Microsoft's certification review. The changes below will apply once it has been approved; the regular edition is already live.
+::: -->
+
+#### Stricter Content Sanitization
+
+Ongoing refinement of Microsoft's custom-visual certification rules has driven a round of sanitization tightening. A [Sanitization](sanitization) page has also been added to fully document this and keep track of things as these rules are updated.
+
+#### New Tags
+
+Several tags were found to be missing from the safe list and have been added: `<del/>`, `<details/>`, `<ins/>`, `<meter/>`, `<output/>`, `<progress/>`, `<search/>`, `<summary/>`. An SVG filter primitive (`<feMergeNode/>`) that was misspelled in the safe list has also been restored.
+
+#### Bugs Fixed
 
 - Fixed an issue in HTML sanitization where the `<feDisplacementMap/>` SVG tag was not being correctly processed.
 

@@ -10,14 +10,14 @@ import ReactPlayer from "react-player";
 
 ## A General Note About Power BI Interactivity
 
-Before we begin, it might be worth talking a little bit about this, so that your expectations are managed. With interactivity, Power BI visuals depend very heavily on the row context of the dataset that is sent through. This is managed by Power BI and visuals don't have a lot of control over its behavior, so we have to work with what we've got. The challenges and limitations around this are <a href="https://deneb-viz.github.io/interactivity-overview" target="_blank">covered in pretty decent detail over on Deneb's website</a> if you want to understand this in a bit more detail, so we'll try to keep things brief here so that you can digest what you will and will not be able to do with these new features.
+Before we begin, it might be worth talking a bit about this so your expectations are managed. In interactive reports, Power BI visuals depend heavily on the row context of the dataset sent in. This is managed by Power BI, and visuals don't have much control over its behavior, so we have to work with what we've got. The challenges and limitations around this are <a href="https://deneb-viz.github.io/interactivity-overview" target="_blank">covered in pretty decent detail over on Deneb's website</a> if you want to understand this in a bit more detail, so we'll try to keep things brief here so that you can digest what you will and will not be able to do with these new features.
 
 With HTML Content, we have what are likely two different camps of users:
 
 1. Those who use the visual with its two main data roles: **Values** (for the HTML) and **Granularity** to create row context.
 2. Those who use one giant measure to build their HTML.
 
-For those who use the first approach, you will have the most options available to you. Using the **Granularity** data role creates row context that Power BI interactivity can understand. With the single measure, Power BI only has a single value as its context and this doesn't include things like row context. As such, you will be limited in what you can do, but we've tried to provide some help where we can (and will point this out below where it can benefit).
+For those who use the first approach, you will have the most options available. Using the **Granularity** data role creates row context that Power BI interactivity can understand. With a single measure, Power BI only has a single value as its context, which doesn't include things like row context. As such, you will be limited in what you can do, but we've tried to provide some help where we can (and will point this out below where it can benefit).
 
 ## Tooltips
 
@@ -27,7 +27,7 @@ Firstly, we have Power BI tooltip functionality. You have two approaches here:
 
 This approach is like for other visuals in Power BI and relies on having suitable row context. As such, if you use a single measure for your HTML output, then you will only be able to display a single tooltip for your visual, unless you use [Independent Tooltip Binding](#independent-tooltip-binding).
 
-The simplest approach is to add measures to the new **Tooltip** data role, and HTML Content will display these when you hover over the element that represents your data row. If you add **Granularity** and have a suitable drillthrough page assigned (or a tooltip page), then this will work as you might expect, e.g.:
+The simplest approach is to add measures to the new **Tooltip** data role, and HTML Content will display them when you hover over the element representing your data row. If you add **Granularity** and have a suitable drillthrough page assigned (or a tooltip page), then this will work as you might expect, e.g.:
 
 <ReactPlayer
   url={
@@ -41,7 +41,7 @@ The simplest approach is to add measures to the new **Tooltip** data role, and H
 
 #### Data Row Element Hover State
 
-Additionally, when a data row element is hovered over with the mouse, HTML Content will apply a class of **`hover`** to it. You can apply a suitable selector to the stylesheet measure to apply styling on these events. Note that using the **`:hover`** [pseudo class](https://developer.mozilla.org/en-US/docs/Web/CSS/Pseudo-classes) will work as well:
+Additionally, when a data row element is hovered over with the mouse, HTML Content will apply a class of **`hover`** to it. You can apply a suitable selector to the stylesheet measure to style these events. Note that using the **`:hover`** [pseudo class](https://developer.mozilla.org/en-US/docs/Web/CSS/Pseudo-classes) will work as well:
 
 <ReactPlayer
   url={
@@ -59,7 +59,7 @@ If you prefer to use a single measure, you may not benefit from some of the abov
 
 - Firstly, add the **`tooltipEnabled`** class to the element(s) that you wish to trigger a tooltip. This will instruct HTML Content to bind an event listener to that element.
 
-- Next add **2** **`data-tooltip-*`** attributes for each item you wish to display in the tooltip - one for the **`title`** of the field, and one for the field **`value`**. These should each include a suffix that represents a unique key for that tooltip item (and will be used to reconcile both data attributes).
+- Next, add **2** **`data-tooltip-*`** attributes for each item you wish to display in the tooltip - one for the **`title`** of the field, and one for the field **`value`**. Each of these should include a suffix that represents a unique key for that tooltip item (and will be used to reconcile both data attributes).
 
 For example, this might look like the following in raw HTML:
 
@@ -87,7 +87,7 @@ The video below shows an overview of how this works in practice:
   controls={true}
 />
 
-The reason for two attributes per field is because we can't use semantic naming for a data attribute (such as including spaces). To provide the most flexibility for your displayed title, having a dedicated attribute allows you to be more specific with your user-facing content.
+The reason for two attributes per field is that we can't use semantic naming for data attributes (e.g., including spaces). To provide the most flexibility for your displayed title, a dedicated attribute lets you be more specific in your user-facing content.
 
 Similarly, you don't need to suffix the key with a hyphen or a number; you just need the prefix to be correct and that the suffix you use:
 
@@ -98,7 +98,7 @@ You _can_ also omit the title or the value if you wish to only fill one of these
 
 ## Cross-Filtering
 
-If you use the **Granularity** data role, this can now provide you with the ability to cross-filter other visuals. Unfortunately, single-measure designs cannot benefit from this due to no row context being present in the visual dataset.
+If you use the **Granularity** data role, you can now cross-filter other visuals. Unfortunately, single-measure designs cannot benefit from this because there is no row context in the visual dataset.
 
 For those who wish to use this feature, you will need to have at least one column in the **Granularity** data role and **Enable** the functionality, e.g.:
 
@@ -114,7 +114,7 @@ For those who wish to use this feature, you will need to have at least one colum
 
 ### Unselected Data Point Appearance and Manual Styling
 
-By default, unselected data points will be dimmed as for how other visuals typically do it, i.e. 70% transparency. You can modify this value in the **Transparency %** property if you wish for the effect to be accentuated or reduced accordingly.
+By default, unselected data points will be dimmed as other visuals typically do, i.e., 70% transparency. You can modify this value in the **Transparency %** property if you wish for the effect to be accentuated or reduced accordingly.
 
 Much like the tooltip hover event, the enclosing HTML element for unselected data points has a class of **`unselected`** applied to it, and you can apply your own styling. If you wish to do this, it's recommended that you disable the **Set transparency of unselected items** property.
 
@@ -130,7 +130,7 @@ Much like the tooltip hover event, the enclosing HTML element for unselected dat
 
 ## Context Menu
 
-If you have columns in the **Granularity** data role (creating valid row context), the context menu will now offer data point-related options, including drillthrough, if you have a valid page to do so, e.g.:
+If you have columns in the **Granularity** data role (creating a valid row context), the context menu will now offer data point-related options, including drillthrough, if you have a valid page to do so, e.g.:
 
 <ReactPlayer
   url={

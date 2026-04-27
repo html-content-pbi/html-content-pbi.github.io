@@ -12,7 +12,7 @@ If you're serious about content, then it's recommended that you spend some time 
 
 - Microsoft hosts custom visuals in **[sandboxed iframes](https://www.w3schools.com/TAGS/att_iframe_sandbox.asp)** in order to keep a user safe from potentially malicious third-party code.
 - It doesn't matter whether a custom visual is certified or uncertified when it comes to this limitation.
-- Therefore some things that work in a standalone web browser or web application will nto work, no matter how hard you try, and we can't change this.
+- Therefore some things that work in a standalone web browser or web application will not work, no matter how hard you try, and we can't change this.
 
 :::
 
@@ -46,7 +46,7 @@ If you find one that's not listed, [please let me know about it](https://github.
 
 ## Embeddable Content Known to Work - Regular Edition Only
 
-Embedding content from any the following services is known to work once a report has been published in the Power BI Service:
+Embedding content from any of the following services is known to work once a report has been published in the Power BI Service:
 
 | Who                            | Details                                                                                                             |
 | ------------------------------ | ------------------------------------------------------------------------------------------------------------------- |

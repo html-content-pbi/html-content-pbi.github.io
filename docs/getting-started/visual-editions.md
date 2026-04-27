@@ -87,16 +87,22 @@ The available tags are:
       <code>&lt;dd/&gt;</code>
     </td>
     <td>
+      <code>&lt;del/&gt;</code>
+    </td>
+    <td>
+      <code>&lt;details/&gt;</code>
+    </td>
+    <td>
       <code>&lt;dfn/&gt;</code>
     </td>
+  </tr>
+  <tr>
     <td>
       <code>&lt;div/&gt;</code>
     </td>
     <td>
       <code>&lt;dl/&gt;</code>
     </td>
-  </tr>
-  <tr>
     <td>
       <code>&lt;dt/&gt;</code>
     </td>
@@ -106,14 +112,14 @@ The available tags are:
     <td>
       <code>&lt;figcaption/&gt;</code>
     </td>
+  </tr>
+  <tr>
     <td>
       <code>&lt;figure/&gt;</code>
     </td>
     <td>
       <code>&lt;footer/&gt;</code>
     </td>
-  </tr>
-  <tr>
     <td>
       <code>&lt;header/&gt;</code>
     </td>
@@ -123,14 +129,14 @@ The available tags are:
     <td>
       <code>&lt;hr/&gt;</code>
     </td>
+  </tr>
+  <tr>
     <td>
       <code>&lt;h1/&gt;</code>
     </td>
     <td>
       <code>&lt;h2/&gt;</code>
     </td>
-  </tr>
-  <tr>
     <td>
       <code>&lt;h3/&gt;</code>
     </td>
@@ -140,20 +146,25 @@ The available tags are:
     <td>
       <code>&lt;h5/&gt;</code>
     </td>
+  </tr>
+  <tr>
     <td>
       <code>&lt;h6/&gt;</code>
     </td>
     <td>
       <code>&lt;i/&gt;</code>
     </td>
-  </tr>
-  <tr>
     <td>
       <code>&lt;img/&gt; *</code>
     </td>
     <td>
+      <code>&lt;ins/&gt;</code>
+    </td>
+    <td>
       <code>&lt;kbd/&gt;</code>
     </td>
+  </tr>
+  <tr>
     <td>
       <code>&lt;li/&gt;</code>
     </td>
@@ -163,13 +174,19 @@ The available tags are:
     <td>
       <code>&lt;mark/&gt;</code>
     </td>
-  </tr>
-  <tr>
+    <td>
+      <code>&lt;meter/&gt;</code>
+    </td>
     <td>
       <code>&lt;nav/&gt;</code>
     </td>
+  </tr>
+  <tr>
     <td>
       <code>&lt;ol/&gt;</code>
+    </td>
+    <td>
+      <code>&lt;output/&gt;</code>
     </td>
     <td>
       <code>&lt;p/&gt;</code>
@@ -178,10 +195,13 @@ The available tags are:
       <code>&lt;pre/&gt;</code>
     </td>
     <td>
-      <code>&lt;q/&gt;</code>
+      <code>&lt;progress/&gt;</code>
     </td>
   </tr>
   <tr>
+    <td>
+      <code>&lt;q/&gt;</code>
+    </td>
     <td>
       <code>&lt;rb/&gt;</code>
     </td>
@@ -194,11 +214,11 @@ The available tags are:
     <td>
       <code>&lt;rtc/&gt;</code>
     </td>
+  </tr>
+  <tr>
     <td>
       <code>&lt;ruby/&gt;</code>
     </td>
-  </tr>
-  <tr>
     <td>
       <code>&lt;s/&gt;</code>
     </td>
@@ -206,22 +226,30 @@ The available tags are:
       <code>&lt;samp/&gt;</code>
     </td>
     <td>
+      <code>&lt;search/&gt;</code>
+    </td>
+    <td>
       <code>&lt;section/&gt;</code>
     </td>
+  </tr>
+  <tr>
     <td>
       <code>&lt;small/&gt;</code>
     </td>
     <td>
       <code>&lt;span/&gt;</code>
     </td>
-  </tr>
-  <tr>
     <td>
       <code>&lt;strong/&gt;</code>
     </td>
     <td>
       <code>&lt;sub/&gt;</code>
     </td>
+    <td>
+      <code>&lt;summary/&gt;</code>
+    </td>
+  </tr>
+  <tr>
     <td>
       <code>&lt;sup/&gt;</code>
     </td>
@@ -231,14 +259,14 @@ The available tags are:
     <td>
       <code>&lt;tbody/&gt;</code>
     </td>
-  </tr>
-  <tr>
     <td>
       <code>&lt;td/&gt;</code>
     </td>
     <td>
       <code>&lt;tfoot/&gt;</code>
     </td>
+  </tr>
+  <tr>
     <td>
       <code>&lt;th/&gt;</code>
     </td>
@@ -248,14 +276,14 @@ The available tags are:
     <td>
       <code>&lt;time/&gt;</code>
     </td>
-  </tr>
-  <tr>
     <td>
       <code>&lt;tr/&gt;</code>
     </td>
     <td>
       <code>&lt;u/&gt;</code>
     </td>
+  </tr>
+  <tr>
     <td>
       <code>&lt;ul/&gt;</code>
     </td>
@@ -265,9 +293,13 @@ The available tags are:
     <td>
       <code>&lt;wbr/&gt;</code>
     </td>
+    <td></td>
+    <td></td>
   </tr>
 </table>
 
-\* can be used with [data URLs](https://developer.mozilla.org/en-US/docs/web/http/basics_of_http/data_urls). Content cannot be loaded from remote endpoints, in order to comply with visual certification rules.
+\* can be used with [data URLs](https://developer.mozilla.org/en-US/docs/web/http/basics_of_http/data_urls). Content cannot be loaded from remote endpoints, in order to comply with visual certification rules. From version 1.6.0 onwards, the data URL must be base64-encoded (`data:image/png;base64,…`); plain-text variants are rejected.
 
 All [SVG](https://developer.mozilla.org/en-US/docs/Web/SVG) tags should also be supported, with the exception of `<use/>`, `<script/>` and `<foreignObject/>`.
+
+See the [Sanitization](sanitization) page for the full set of sanitization rules that apply to content and stylesheets.
