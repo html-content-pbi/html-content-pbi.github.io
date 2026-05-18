@@ -87,3 +87,13 @@ This property will apply the specified `color` to the visual's body, if there is
 ### Text alignment
 
 This property will apply the specified `text-align` to the visual's body, if there is no overriding styling applied to the HTML content - either in an an element's inline `style` attribute, or in a `<style>` tag if using one of those in your expressions.
+
+### Override inline styles
+
+By default, the four body-styling properties above are only applied when there is no overriding inline `style` attribute on your HTML content. This works for content with deliberate inline styling, but content produced by applications like **Word**, **Outlook**, or **Teams** embeds inline `style` declarations on almost every element it emits - which silently overrides the body styling you have configured on the visual.
+
+Enabling **Override inline styles** tells the visual to propagate the body-styling values through the DOM, overriding any inline `style` declarations for `color`, `font-family`, `font-size`, `text-align`, and `background-color`. Other inline styles (margins, borders, custom classes, and anything else not in that list) are left intact.
+
+- Disabled by default.
+- This is a coarse override - it cannot pick and choose which inline styles to keep. If you need fine-grained control over which inline styles win, supply a [custom stylesheet](properties-stylesheet) instead. A custom stylesheet always takes precedence over both inline styles and this toggle.
+- For the mechanics of how the override is applied (and how the lite edition handles inline styles in general), see [Default body styling](sanitization#default-body-styling) on the Sanitization page.
