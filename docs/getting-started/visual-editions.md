@@ -19,7 +19,7 @@ For both editions, the minimum required versions are:
 
 This edition of the visual tries to provide as much functionality as possible within the custom visual sandbox. Note that Microsoft does impose some limitations on all custom visuals, not just certified vs. uncertified ones so it is not possible to do everything you can do in a regular web application. You can learn more about these limitations on the [Limitations](limitations) page.
 
-## Lite (Certified) 🛡️
+## Lite (Certified) 🛡️ {#lite-certified}
 
 [View or download on AppSource](https://appsource.microsoft.com/en-us/product/PowerBIVisuals/coacervolimited1596856650797.htmlcontent_certified)
 
