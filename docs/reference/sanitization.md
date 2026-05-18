@@ -1,10 +1,10 @@
 ---
-sidebar_position: 45
+sidebar_position: 210
 description: What the HTML Content (lite) visual strips from HTML and CSS payloads, and why.
 slug: /sanitization
 ---
 
-# Sanitization
+# Sanitization 🛡️
 
 This page applies to [HTML Content (lite)](visual-editions#lite-certified), the certified edition of the visual. The regular [HTML Content](visual-editions#regular) edition does **not** sanitize content - it passes values through to the Power BI custom-visual sandbox and relies on the sandbox as its only line of defense. This is the key behavioral difference between the two editions.
 

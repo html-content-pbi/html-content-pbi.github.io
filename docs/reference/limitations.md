@@ -1,5 +1,5 @@
 ---
-sidebar_position: 50
+sidebar_position: 300
 description: Here you can learn about what might not be possible inside Power BI.
 slug: /limitations
 ---
