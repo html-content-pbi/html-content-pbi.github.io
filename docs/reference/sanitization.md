@@ -6,7 +6,11 @@ slug: /sanitization
 
 # Sanitization 🛡️
 
-This page applies to [HTML Content (lite)](visual-editions#lite-certified), the certified edition of the visual. The regular [HTML Content](visual-editions#regular) edition does **not** sanitize content - it passes values through to the Power BI custom-visual sandbox and relies on the sandbox as its only line of defense. This is the key behavioral difference between the two editions.
+:::note Certified Visual Only
+This page applies to [HTML Content (lite)](visual-editions#lite-certified), the certified edition of the visual.
+
+The regular [HTML Content](visual-editions#regular) edition does **not** sanitize content - it passes values through to the Power BI custom-visual sandbox and relies on the sandbox as its only line of defense. This is the key behavioral difference between the two editions.
+:::
 
 HTML Content (lite) treats every value passed in from your data as untrusted input and runs it through a sanitizer before adding it to the DOM. This protects report viewers from cross-site scripting, data exfiltration, and content-spoofing attacks, and is required by Microsoft's AppSource certification rules.
 
@@ -24,9 +28,18 @@ All three go through the same CSS rule set. Inline attributes additionally pass 
 
 ### HTML elements
 
-The visual permits a specific set of block, inline, table, image/style, and SVG elements. The full list is on the [Visual Editions](visual-editions#lite-certified) page.
+The visual permits a specific set of block, inline, table, image/style, and SVG elements. The full list is on the [Accepted Tags](accepted-tags) page.
 
 `<script/>`, `<iframe/>`, `<object/>`, `<embed/>`, `<link/>`, `<meta/>`, `<form/>`, and any element not on the allowed-tag list are dropped entirely, along with all their content.
+
+From version 1.6.1 onwards, SMIL animation tags (`<animate/>`, `<animateMotion/>`, `<animateTransform/>`, `<set/>`) are permitted, with restrictions on which attributes they may target. The `attributeName` value is checked against a denylist that rejects animation against:
+
+- URL-bearing attributes (`href`, `xlink:href`, `src`, `srcdoc`, `srcset`, `formaction`, `action`, `ping`, `background`, `poster`).
+- The bulk `style` attribute.
+- `url(#)`-resolving attributes (`cursor`, `clip-path`, `mask`, `filter`, `marker-*`).
+- The meta `attributeName` itself.
+
+This closes the `<animate attributeName="href" to="javascript:..."/>` bypass primitive. Safe animation targets include `opacity`, `transform`, `fill`, `stroke`, and most other CSS-property-style attributes.
 
 ### HTML attributes
 
@@ -65,10 +78,10 @@ Any attribute matching `on*` (`onclick`, `onload`, `onerror`, `onmouseover`, etc
 For attributes that carry URLs (`href`, `src`, `xlink:href`):
 
 - `https:` and `http:` are allowed for `<a href>`. Power BI's `launchUrl()` API handles the navigation - see [Allow opening URLs](properties-content-formatting#allow-opening-urls).
-- `data:` URIs are allowed for `<img src>` and equivalent image attributes, but only if:
-  - The MIME type is `image/png`, `image/jpeg`, `image/gif`, `image/webp`, or `image/bmp`. `image/svg+xml` is rejected because SVG can carry scripts.
-  - The URI is **base64-encoded** (`data:image/png;base64,...`). A plain-text `data:image/png,<html>...</html>` is rejected because real binary image data cannot be plain-text - such a URI is always smuggling HTML or text behind an image declaration.
-- URL attributes are **NFKC-normalized** before scheme matching. This catches obfuscation attempts such as `<a href="ｊavascript:...">` (using a fullwidth `ｊ`), which would otherwise slip past a naive scheme check.
+- `data:` URIs are allowed for `<img src>` and equivalent image attributes, but with MIME-conditional encoding rules:
+  - Raster MIME types (`image/png`, `image/jpeg`, `image/gif`, `image/webp`, `image/bmp`) must be **base64-encoded** (`data:image/png;base64,...`). A plain-text `data:image/png,<html>...</html>` is rejected because real binary image data cannot be plain-text - such a URI is always smuggling HTML or text behind an image declaration.
+  - `image/svg+xml` is permitted from version 1.6.1 onwards and accepts `;base64,`, `;utf8,`, and bare-comma forms (SVG is text by spec). The inner SVG payload is recursively scanned and any `<script/>`, `<foreignObject/>`, or `<use/>` element is stripped. Malformed percent-encoding is rejected fail-closed.
+- URL attributes are [NFKC-normalized](https://symbolfyi.com/guides/unicode-normalization-guide/) before scheme matching. This catches obfuscation attempts such as `<a href="ｊavascript:...">` (using a fullwidth `ｊ`), which would otherwise slip past a naive scheme check.
 - All other schemes (`javascript:`, `vbscript:`, `livescript:`, `mocha:`, `blob:`, `file:`, `ftp:`, `mailto:`, `tel:`, etc.) are rejected.
 
 ## CSS-specific rules
@@ -76,6 +89,8 @@ For attributes that carry URLs (`href`, `src`, `xlink:href`):
 ### External URLs
 
 `url(https://...)` and `url(http://...)` in any CSS property (`background`, `cursor`, `list-style-image`, and so on) are blocked. The certified-visual sandbox does not allow visuals to fetch resources from arbitrary external origins - an external URL triggers a Content Security Policy violation.
+
+From version 1.6.1 onwards, the same restriction applies to SVG presentation attributes that accept functional-IRI values (`mask`, `clip-path`, `filter`, `marker-*`, and similar). An external `url(https://...)` inside an SVG presentation attribute is rejected by the funciri value-side scheme check, exactly as it would be in CSS.
 
 **Workaround:** embed images as base64 `data:image/...;base64,...` URIs.
 
@@ -105,6 +120,29 @@ The only at-rules permitted are `@media`, `@supports`, `@keyframes`, `@-webkit-k
 
 Although `attr()` is a standard CSS function, it is rejected. It has historically been used to read element attribute values during CSS rendering - for example, to exfiltrate `data-*` attributes via a generated-content side-channel.
 
+### Multi-line and comma-separated selectors {#multi-line-selectors}
+
+Multi-line CSS rules - selector lists broken across newlines, indented with tabs, or split across `\r\n` line endings - survive sanitization from version 1.6.1 onwards. For example:
+
+```css
+.a,
+.b,
+.c {
+  color: red;
+}
+```
+
+renders all three selectors. Prior to 1.6.1, the dangerous-selector check rejected CSS-spec whitespace control characters (TAB / LF / FF / CR) inside the `0x00-0x1F` range, which silently dropped any rule whose selector list spanned multiple lines. If you authored CSS that worked locally but lost rules in the visual on an older build, this is the fix.
+
+### Default body styling {#default-body-styling}
+
+When no [Custom stylesheet](properties-stylesheet) is supplied on the format pane, the visual applies a default style to the body container that forces `inherit !important` on `color`, `font-family`, `font-size`, `text-align`, and `background-color`. This is intentional - it overrides residual inline `style` declarations that office-paste content (Outlook, Teams, Word) carries with it, so the visual's own properties win the cascade.
+
+If you want your inline `style` colours, fonts, or backgrounds to take effect:
+
+- Supply any value in the **Stylesheet → Custom stylesheet** setting on the format pane (added in version 1.6.1). A one-line stylesheet is enough to disable the cascade override.
+- Or move your styling into the custom stylesheet itself, which is the recommended path.
+
 ### Defense in depth
 
 After the CSS sanitizer has parsed, walked, and re-serialized a stylesheet, a final regex scan runs over the output looking for known-dangerous tokens (`@import`, `expression(`, `javascript:`, `-moz-binding`, `behavior:`, `progid:`, etc.). If any match, the entire block is dropped and a `console.warn` is emitted. This is a safety net - the parser-based rules are the source of truth.
@@ -118,6 +156,8 @@ After the CSS sanitizer has parsed, walked, and re-serialized a stylesheet, a fi
 - **I want to import a shared stylesheet.** Copy the rules you need into your custom stylesheet directly.
 
 - **I want to attach click handlers.** Use Power BI's built-in [cross-filtering and tooltip features](interactivity) instead. Inline event handlers cause the entire element to be dropped.
+
+- **I want to use an SVG image inline.** From version 1.6.1, `data:image/svg+xml` is accepted on `<img src>`. Inline (`;utf8,`) and base64 encodings both work. The inner SVG is recursively scanned; `<script/>`, `<foreignObject/>`, and `<use/>` are stripped before rendering. Malformed percent-encoding rejects fail-closed.
 
 - **I need a feature that the sanitizer rejects.** If the restriction is incompatible with your use case, the regular [HTML Content](visual-editions#regular) edition does not sanitize. Note that it is not certified and relies solely on the Power BI sandbox.
 
@@ -135,15 +175,21 @@ The visual emits `console.warn` messages explaining what was dropped - check the
 
 ### My `<style/>` tag is empty
 
-The defense-in-depth pass matched a dangerous token in the final output (often something smuggled through a CSS comment). The whole `<style/>` body is replaced with empty.
+The defense-in-depth pass matched a dangerous token in the final output. The whole `<style/>` body is replaced with empty.
+
+A common cause is using `//` as a comment marker in your CSS. `//` is not a valid CSS comment - see the [FAQ entry](faq#style-block-disappeared) for the full explanation and the spec link. Use `/* ... */` block comments instead.
 
 ### My image isn't loading
 
 Check the `src` value:
 
 - External URLs (`http://`, `https://`) are blocked. Convert to a base64 data URI.
-- `data:image/svg+xml,...` is blocked. Use PNG or JPEG instead.
-- `data:image/png,...` without `;base64,` is rejected. Re-encode as base64.
+- `data:image/png,...` (or any other raster MIME type) without `;base64,` is rejected. Re-encode as base64.
+- `data:image/svg+xml,...` is permitted from version 1.6.1 onwards. If your SVG isn't rendering, check whether it relied on `<script/>`, `<foreignObject/>`, or `<use/>` - those are stripped during the inner-payload scan. Malformed percent-encoding is also rejected.
+
+### My SVG animation isn't running {#svg-animation-not-running}
+
+SMIL animation tags (`<animate/>`, `<animateMotion/>`, `<animateTransform/>`, `<set/>`) are permitted from version 1.6.1, but their `attributeName` is checked against a denylist. The most common cause of a non-running animation is that the target attribute is on that denylist - see [HTML attributes](#html-attributes) above for the full list and the safe-target guidance.
 
 ### An entire element is missing
 
@@ -154,4 +200,6 @@ Most common causes:
 
 ## Full reference
 
-The [visual's repository](https://github.com/dm-p/powerbi-visuals-html-content/blob/main/docs/sanitization-rules.md) contains the exhaustive reference, including 88 worked input/output examples auto-generated from the regression test corpus.
+The [visual's repository](https://github.com/dm-p/powerbi-visuals-html-content/blob/main/docs/sanitization-rules.md) contains the exhaustive reference, including worked input/output examples auto-generated from the regression test corpus.
+
+That document is generated from the sanitizer's rule sources and is gated by CI on every commit, so it cannot drift from the actual behavior. If you need the machine-checked rule set, always trust the upstream reference over a curated summary.
