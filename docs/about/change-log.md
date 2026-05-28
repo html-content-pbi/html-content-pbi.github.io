@@ -6,7 +6,11 @@ slug: /change-log
 
 # Change Log
 
-## 1.6.1 (TBD)
+## 1.6.1 (2026-05-29)
+
+:::warning Pending Deployment
+The AppSource listing has been updated, but it can take up to two weeks from this date for MS to deploy updates to all Power BI tenants.
+:::
 
 ### Bugs Fixed
 
@@ -33,6 +37,11 @@ This patch release aims to work with the updated certification rules and as many
 - Multi-line and comma-separated CSS selectors are no longer silently dropped.
 - Default body styling is now overridden when content carries office-paste residue (Outlook / Teams / Word) and no custom stylesheet is supplied.
 - SVG payload scanning has been extended to functional-IRI presentation attributes (`mask`, `clip-path`, `filter`, `marker-*`).
+- Hyperlink `href` handling has been hardened for certification: when [**Allow opening URLs**](properties-content-formatting#allow-opening-urls) is disabled (the default), `href` and `xlink:href` are now stripped from `<a>` elements entirely, rather than left in the DOM with the click suppressed.
+
+:::tip Check CSS for Correct Comments
+After 1.6.0, we saw users reporting issues in which their CSS/styling was being sanitized. Whilst we found some legitimate cases that could be improved under the new certification rules, some folks were using incorrect comment formatting (line-style `//` vs. block-style `/* ... */`) in their content. [Only block-style comments are supported by the CSS specification](https://developer.mozilla.org/en-US/docs/Web/CSS/Comments), and we've added [a FAQ section for this](docs/faq#style-block-disappeared) - worth checking, just in case.
+:::
 
 ## 1.6.0 (2025-04-03)
 

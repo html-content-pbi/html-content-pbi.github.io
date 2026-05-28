@@ -14,15 +14,23 @@ The regular [HTML Content](visual-editions#regular) edition does **not** sanitiz
 
 HTML Content (lite) treats every value passed in from your data as untrusted input and runs it through a sanitizer before adding it to the DOM. This protects report viewers from cross-site scripting, data exfiltration, and content-spoofing attacks, and is required by Microsoft's AppSource certification rules.
 
-## Where sanitization runs
+## What gets sanitized {#where-sanitization-runs}
 
-There are three places where your content enters the visual and is sanitized:
+Every value that comes in from your data is treated as untrusted. The visual parses it and runs the whole tree through the sanitizer before any of it reaches the page. It applies across four surfaces:
 
-1. Inline `style` attributes on any HTML element - for example, `<p style="color: red">`.
-2. `<style>` tag bodies embedded in your HTML payload.
-3. The custom stylesheet set via the [Stylesheet](properties-stylesheet) property.
-
-All three go through the same CSS rule set. Inline attributes additionally pass through the HTML attribute allowlist.
+1. **HTML elements**
+    - Every tag is checked against the allowed-tag list.
+    - Anything not on it is dropped, along with its content. See [HTML elements](#html-elements).
+2. **HTML attributes**
+    - Every attribute is checked against the global and per-element allowlists.
+    - Disallowed attributes are dropped, and some (such as event handlers) cause the whole element to be removed. See [HTML attributes](#html-attributes).
+3. **URLs**
+    - URL-bearing attributes (`href`, `src`, `xlink:href`) are normalized and scheme-checked. See [URL schemes](#url-schemes).
+4. **CSS**
+    - Styling is sanitized wherever it appears, through the single shared rule set described under [CSS-specific rules](#css-specific-rules):
+    - Inline `style` attributes on any element - for example, `<p style="color: red">`.
+    - `<style>` tag bodies embedded in your HTML payload.
+    - The custom stylesheet set via the [Stylesheet](properties-stylesheet) property.
 
 ## What's allowed
 
@@ -77,7 +85,9 @@ Any attribute matching `on*` (`onclick`, `onload`, `onerror`, `onmouseover`, etc
 
 For attributes that carry URLs (`href`, `src`, `xlink:href`):
 
-- `https:` and `http:` are allowed for `<a href>`. Power BI's `launchUrl()` API handles the navigation - see [Allow opening URLs](properties-content-formatting#allow-opening-urls).
+- `<a href>` (and `<a xlink:href>`) passes through **two independent gates** from version 1.6.1 onwards:
+  - **The [Allow opening URLs](properties-content-formatting#allow-opening-urls) toggle** governs whether `href` is allowed to populate at all. When the toggle is **disabled (the default)**, `href` and `xlink:href` are stripped from every `<a>` element - the rendered DOM contains no clickable URL surface whatsoever. This is required by AppSource certification: the scanner flags any surviving `href` in user content even when the click itself is suppressed.
+  - **The scheme allowlist** governs which schemes survive when the toggle is enabled. Only `https:` and `http:` pass; Power BI's `launchUrl()` API handles the navigation. A `javascript:` (or other non-http) scheme is still dropped even with the toggle on - both gates apply.
 - `data:` URIs are allowed for `<img src>` and equivalent image attributes, but with MIME-conditional encoding rules:
   - Raster MIME types (`image/png`, `image/jpeg`, `image/gif`, `image/webp`, `image/bmp`) must be **base64-encoded** (`data:image/png;base64,...`). A plain-text `data:image/png,<html>...</html>` is rejected because real binary image data cannot be plain-text - such a URI is always smuggling HTML or text behind an image declaration.
   - `image/svg+xml` is permitted from version 1.6.1 onwards and accepts `;base64,`, `;utf8,`, and bare-comma forms (SVG is text by spec). The inner SVG payload is recursively scanned and any `<script/>`, `<foreignObject/>`, or `<use/>` element is stripped. Malformed percent-encoding is rejected fail-closed.
@@ -189,6 +199,10 @@ Check the `src` value:
 ### My SVG animation isn't running {#svg-animation-not-running}
 
 SMIL animation tags (`<animate/>`, `<animateMotion/>`, `<animateTransform/>`, `<set/>`) are permitted from version 1.6.1, but their `attributeName` is checked against a denylist. The most common cause of a non-running animation is that the target attribute is on that denylist - see [HTML attributes](#html-attributes) above for the full list and the safe-target guidance.
+
+### My link isn't clickable, or its `href` is missing {#href-stripped}
+
+From version 1.6.1, `href` on `<a>` is gated on the [Allow opening URLs](properties-content-formatting#allow-opening-urls) property, which is disabled by default. While it is disabled, the visual strips `href` and `xlink:href` from every `<a>` element, so the link text renders but is not clickable and the attribute is absent from the output. Enable **Allow opening URLs** in the format pane to let `http:`/`https:` hyperlinks through. Other schemes (`javascript:`, `mailto:`, `ftp:`, and so on) are dropped regardless of the toggle.
 
 ### An entire element is missing
 

@@ -41,6 +41,8 @@ Custom visuals are prevented from directly opening hyperlinks or external URLs o
 
   ![url-invalid-protocol.png](./images/properties/url-invalid-protocol.png "Example of error message displayed by Power BI for an unsupported hyperlink protocol.")
 
+- In **HTML Content (lite)**, this property also controls whether the `href` attribute is present in the rendered output at all. When the property is disabled (the default), the sanitizer strips `href` (and `xlink:href`) from every `<a>` element, not just the click behavior - this is required for certification. See [Sanitization > URL schemes](sanitization#url-schemes) for the full rule. The regular edition leaves the attribute in place and only manages the click.
+
 ### Allow text select
 
 While Power BI has a **Copy** option in the context menu, this only applies to the entire visual and not specific content within it. Therefore you can enable this option to allow users to highlight text using their mouse.

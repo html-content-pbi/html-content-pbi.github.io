@@ -6,7 +6,13 @@ slug: /accepted-tags
 
 # Accepted Tags 🛡️
 
-This page lists the set of HTML and SVG tags accepted by [HTML Content (lite)](visual-editions#lite-certified), the certified edition of the visual. The regular edition supports a broader set, constrained only by Microsoft's custom-visual sandbox — see [Visual Editions](visual-editions) for a comparison of the two editions, and [Sanitization](sanitization) for how content is filtered.
+:::note Certified Visual Only
+This page applies to [HTML Content (lite)](visual-editions#lite-certified), the certified edition of the visual.
+
+The regular [HTML Content](visual-editions#regular) edition does **not** filter your content for tags - it passes values through to the Power BI custom-visual sandbox and relies on the sandbox as its only line of defense. This is the key behavioral difference between the two editions.
+
+Also see [Sanitization](sanitization) for how content is filtered within allowed tags.
+:::
 
 ## HTML and SVG tags
 
