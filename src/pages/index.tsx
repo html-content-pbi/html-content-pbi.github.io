@@ -46,7 +46,7 @@ function HomepageHeader() {
                 />
               </a>
             </div>
-            <div className={styles.productTitle}>HTML Content (lite) 🏅</div>
+            <div className={styles.productTitle}>HTML Content (lite) 🛡️</div>
             <div className={styles.productSubtitle}>
               A focused subset of HTML and SVG, with the benefits of Microsoft
               certification.

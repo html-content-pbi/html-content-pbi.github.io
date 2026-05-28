@@ -10,296 +10,38 @@ HTML Content comes in two editions. These are separate AppSource visuals, so you
 
 For both editions, the minimum required versions are:
 
-- Power BI Desktop: November 2022
-- Power BI Report Server: May 2023
+- Power BI Desktop: July 2024
+- Power BI Report Server: September 2024
 
-### Regular
+## Regular
 
 [View or download on AppSource](https://appsource.microsoft.com/en-us/product/power-bi-visuals/WA200001930)
 
-This edition of the visual tries to provide as much functionality as possible within the custom visual sandbox. Note that Microsoft does impose some limitations on all custom visuals, not just certified vs. uncertified ones so it is not possible to do everything. You can learn more about these limitations on the [Limitations](limitations) page.
+This edition of the visual tries to provide as much functionality as possible within the custom visual sandbox. Note that Microsoft does impose some limitations on all custom visuals, not just certified vs. uncertified ones so it is not possible to do everything you can do in a regular web application. You can learn more about these limitations on the [Limitations](limitations) page.
 
-### Lite (Certified)
+## Lite (Certified) 🛡️ {#lite-certified}
 
 [View or download on AppSource](https://appsource.microsoft.com/en-us/product/PowerBIVisuals/coacervolimited1596856650797.htmlcontent_certified)
 
-This edition is a reduced subset of available tags and no external comms. This is to [comply with Microsoft's certification rules](https://docs.microsoft.com/en-us/power-bi/developer/visuals/power-bi-custom-visuals-certified?WT.mc_id=DP-MVP-5003712#source-code-requirements).
+This is a build of the visual, with a reduced subset of supported tags and no external comms that [complies with Microsoft's certification rules](https://docs.microsoft.com/en-us/power-bi/developer/visuals/power-bi-custom-visuals-certified?WT.mc_id=DP-MVP-5003712#source-code-requirements) for those who can only work with certified visuals.
 
-The available tags are:
+- See [Accepted Tags](accepted-tags) for the full set of HTML and SVG tags supported by this edition.
+- See [Sanitization](sanitization) for how content and stylesheets are filtered.
 
-<table>
-  <tr>
-    <td>
-      <code>&lt;a/&gt;</code>
-    </td>
-    <td>
-      <code>&lt;address/&gt;</code>
-    </td>
-    <td>
-      <code>&lt;article/&gt;</code>
-    </td>
-    <td>
-      <code>&lt;aside/&gt;</code>
-    </td>
-    <td>
-      <code>&lt;b/&gt;</code>
-    </td>
-  </tr>
-  <tr>
-    <td>
-      <code>&lt;base/&gt;</code>
-    </td>
-    <td>
-      <code>&lt;bdi/&gt;</code>
-    </td>
-    <td>
-      <code>&lt;bdo/&gt;</code>
-    </td>
-    <td>
-      <code>&lt;blockquote/&gt;</code>
-    </td>
-    <td>
-      <code>&lt;br/&gt;</code>
-    </td>
-  </tr>
-  <tr>
-    <td>
-      <code>&lt;caption/&gt;</code>
-    </td>
-    <td>
-      <code>&lt;cite/&gt;</code>
-    </td>
-    <td>
-      <code>&lt;code/&gt;</code>
-    </td>
-    <td>
-      <code>&lt;col/&gt;</code>
-    </td>
-    <td>
-      <code>&lt;colgroup/&gt;</code>
-    </td>
-  </tr>
-  <tr>
-    <td>
-      <code>&lt;data/&gt;</code>
-    </td>
-    <td>
-      <code>&lt;dd/&gt;</code>
-    </td>
-    <td>
-      <code>&lt;del/&gt;</code>
-    </td>
-    <td>
-      <code>&lt;details/&gt;</code>
-    </td>
-    <td>
-      <code>&lt;dfn/&gt;</code>
-    </td>
-  </tr>
-  <tr>
-    <td>
-      <code>&lt;div/&gt;</code>
-    </td>
-    <td>
-      <code>&lt;dl/&gt;</code>
-    </td>
-    <td>
-      <code>&lt;dt/&gt;</code>
-    </td>
-    <td>
-      <code>&lt;em/&gt;</code>
-    </td>
-    <td>
-      <code>&lt;figcaption/&gt;</code>
-    </td>
-  </tr>
-  <tr>
-    <td>
-      <code>&lt;figure/&gt;</code>
-    </td>
-    <td>
-      <code>&lt;footer/&gt;</code>
-    </td>
-    <td>
-      <code>&lt;header/&gt;</code>
-    </td>
-    <td>
-      <code>&lt;hgroup/&gt;</code>
-    </td>
-    <td>
-      <code>&lt;hr/&gt;</code>
-    </td>
-  </tr>
-  <tr>
-    <td>
-      <code>&lt;h1/&gt;</code>
-    </td>
-    <td>
-      <code>&lt;h2/&gt;</code>
-    </td>
-    <td>
-      <code>&lt;h3/&gt;</code>
-    </td>
-    <td>
-      <code>&lt;h4/&gt;</code>
-    </td>
-    <td>
-      <code>&lt;h5/&gt;</code>
-    </td>
-  </tr>
-  <tr>
-    <td>
-      <code>&lt;h6/&gt;</code>
-    </td>
-    <td>
-      <code>&lt;i/&gt;</code>
-    </td>
-    <td>
-      <code>&lt;img/&gt; *</code>
-    </td>
-    <td>
-      <code>&lt;ins/&gt;</code>
-    </td>
-    <td>
-      <code>&lt;kbd/&gt;</code>
-    </td>
-  </tr>
-  <tr>
-    <td>
-      <code>&lt;li/&gt;</code>
-    </td>
-    <td>
-      <code>&lt;main/&gt;</code>
-    </td>
-    <td>
-      <code>&lt;mark/&gt;</code>
-    </td>
-    <td>
-      <code>&lt;meter/&gt;</code>
-    </td>
-    <td>
-      <code>&lt;nav/&gt;</code>
-    </td>
-  </tr>
-  <tr>
-    <td>
-      <code>&lt;ol/&gt;</code>
-    </td>
-    <td>
-      <code>&lt;output/&gt;</code>
-    </td>
-    <td>
-      <code>&lt;p/&gt;</code>
-    </td>
-    <td>
-      <code>&lt;pre/&gt;</code>
-    </td>
-    <td>
-      <code>&lt;progress/&gt;</code>
-    </td>
-  </tr>
-  <tr>
-    <td>
-      <code>&lt;q/&gt;</code>
-    </td>
-    <td>
-      <code>&lt;rb/&gt;</code>
-    </td>
-    <td>
-      <code>&lt;rp/&gt;</code>
-    </td>
-    <td>
-      <code>&lt;rt/&gt;</code>
-    </td>
-    <td>
-      <code>&lt;rtc/&gt;</code>
-    </td>
-  </tr>
-  <tr>
-    <td>
-      <code>&lt;ruby/&gt;</code>
-    </td>
-    <td>
-      <code>&lt;s/&gt;</code>
-    </td>
-    <td>
-      <code>&lt;samp/&gt;</code>
-    </td>
-    <td>
-      <code>&lt;search/&gt;</code>
-    </td>
-    <td>
-      <code>&lt;section/&gt;</code>
-    </td>
-  </tr>
-  <tr>
-    <td>
-      <code>&lt;small/&gt;</code>
-    </td>
-    <td>
-      <code>&lt;span/&gt;</code>
-    </td>
-    <td>
-      <code>&lt;strong/&gt;</code>
-    </td>
-    <td>
-      <code>&lt;sub/&gt;</code>
-    </td>
-    <td>
-      <code>&lt;summary/&gt;</code>
-    </td>
-  </tr>
-  <tr>
-    <td>
-      <code>&lt;sup/&gt;</code>
-    </td>
-    <td>
-      <code>&lt;table/&gt;</code>
-    </td>
-    <td>
-      <code>&lt;tbody/&gt;</code>
-    </td>
-    <td>
-      <code>&lt;td/&gt;</code>
-    </td>
-    <td>
-      <code>&lt;tfoot/&gt;</code>
-    </td>
-  </tr>
-  <tr>
-    <td>
-      <code>&lt;th/&gt;</code>
-    </td>
-    <td>
-      <code>&lt;thead/&gt;</code>
-    </td>
-    <td>
-      <code>&lt;time/&gt;</code>
-    </td>
-    <td>
-      <code>&lt;tr/&gt;</code>
-    </td>
-    <td>
-      <code>&lt;u/&gt;</code>
-    </td>
-  </tr>
-  <tr>
-    <td>
-      <code>&lt;ul/&gt;</code>
-    </td>
-    <td>
-      <code>&lt;var/&gt;</code>
-    </td>
-    <td>
-      <code>&lt;wbr/&gt;</code>
-    </td>
-    <td></td>
-    <td></td>
-  </tr>
-</table>
+## When to choose which edition {#when-to-choose}
 
-\* can be used with [data URLs](https://developer.mozilla.org/en-US/docs/web/http/basics_of_http/data_urls). Content cannot be loaded from remote endpoints, in order to comply with visual certification rules. From version 1.6.0 onwards, the data URL must be base64-encoded (`data:image/png;base64,…`); plain-text variants are rejected.
+Both editions render rich, dynamic HTML in your Power BI reports. The right choice depends on what you need from the visual.
 
-All [SVG](https://developer.mozilla.org/en-US/docs/Web/SVG) tags should also be supported, with the exception of `<use/>`, `<script/>` and `<foreignObject/>`.
+**Choose Lite (Certified) if you need any of:**
 
-See the [Sanitization](sanitization) page for the full set of sanitization rules that apply to content and stylesheets.
+- Microsoft AppSource certification for distribution within your organisation.
+- [Export to PowerPoint or PDF](https://learn.microsoft.com/en-us/power-bi/developer/visuals/power-bi-custom-visuals-certified#why-should-i-care-about-getting-my-visual-certified?WT.mc_id=DP-MVP-5003712) of reports that include the visual.
+- To comply with a tenant policy that blocks uncertified custom visuals.
+
+**Choose Regular if you need any of:**
+
+- External content such as remote images, web fonts, or iframes.
+- The broadest HTML, CSS, and SVG surface the Power BI custom-visual sandbox permits.
+- Features rejected by the lite sanitizer (see [Sanitization](sanitization) and [Limitations](limitations) for details).
+
+If you are unsure, start with **Lite (Certified)** - you can switch to **Regular** if you hit a sanitizer rejection you cannot work around. The two editions are separate AppSource visuals, so switching is a matter of installing the other one and re-pointing your report.

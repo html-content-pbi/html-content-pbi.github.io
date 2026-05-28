@@ -41,3 +41,11 @@ Custom visuals aren't allowed to open hyperlinks arbitrarily, but we have an [Al
 ### Why Can't I Embed this Particular Video/Web Page/Other Ambitious Thing?
 
 Custom visuals have several restrictions imposed by Power BI, so unfortunately, some things just won't work. There's [a page dedicated to the limitations we know about](limitations), which may help you determine whether you're trying to do something the visual cannot.
+
+## HTML Content (lite) sanitization 🛡️ {#lite-sanitization}
+
+### My `<style/>` block disappeared after I used `//` comments {#style-block-disappeared}
+
+Use CSS-compliant `/* ... */` block comments. `//` is not a valid CSS comment - it was silently tolerated by the visual's previous sanitizer (`sanitize-html`), but from version 1.6.0 onwards the CSS sanitizer (postcss-based) correctly rejects it. Anything from `//` to the end of the line is treated as invalid syntax, which usually takes the surrounding rule or declaration with it.
+
+See MDN's [Comments - CSS](https://developer.mozilla.org/en-US/docs/Web/CSS/Comments) for the spec, and [Sanitization](sanitization#my-style-tag-is-empty) for what the visual does when it rejects a stylesheet.

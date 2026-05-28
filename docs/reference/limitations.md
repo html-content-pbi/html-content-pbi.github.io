@@ -1,5 +1,5 @@
 ---
-sidebar_position: 50
+sidebar_position: 300
 description: Here you can learn about what might not be possible inside Power BI.
 slug: /limitations
 ---
@@ -66,7 +66,7 @@ All custom visuals are themselves hosted in an `<iframe/>` element that is [sand
 
 - According to [the MDN documentation](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/iframe) on `<iframe/>`, having a combination of `allow-scripts` and `allow-same-origin` is not a good idea:
 
-  > When the embedded document has the same origin as the embedding page, it is strongly discouraged to use both `allow-scripts` and `allow-same-origin`, as that lets the embedded document remove the `sandbox` attribute — making it no more secure than not using the `sandbox` attribute at all.
+  > When the embedded document has the same origin as the embedding page, it is strongly discouraged to use both `allow-scripts` and `allow-same-origin`, as that lets the embedded document remove the `sandbox` attribute - making it no more secure than not using the `sandbox` attribute at all.
 
 - Microsoft are unlikely to ever allow this to happen in the current visual architecture, as it can mean that visuals can potentially cause a whole heap of trouble (even if the author is well-intentioned).
 
