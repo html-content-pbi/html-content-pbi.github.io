@@ -6,11 +6,18 @@ slug: /change-log
 
 # Change Log
 
-## 1.6.1 (2026-05-29)
+
+## 1.6.2 (2026-06-18)
 
 :::warning Pending Deployment
 The AppSource listing has been updated, but it can take up to two weeks from this date for MS to deploy updates to all Power BI tenants.
 :::
+
+### Bugs Fixed
+
+- If your dataset measure contained a dynamic format string, this would crash.
+
+## 1.6.1 (2026-05-29)
 
 ### Bugs Fixed
 
