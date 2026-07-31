@@ -19,9 +19,15 @@ For both editions, the minimum required versions are:
 
 This edition of the visual tries to provide as much functionality as possible within the custom visual sandbox. Note that Microsoft does impose some limitations on all custom visuals, not just certified vs. uncertified ones so it is not possible to do everything you can do in a regular web application. You can learn more about these limitations on the [Limitations](limitations) page.
 
-## Lite (Certified) 🛡️ {#lite-certified}
+From version 2.0, [scripting guidelines](scripting) are documented for this edition: embedded `<script/>` elements and inline event handlers execute, which enables interactive, measure-driven content. This is not formally supported, but it works reliably within the documented patterns.
+
+## Secure (Certified) 🛡️ {#lite-certified}
 
 [View or download on AppSource](https://appsource.microsoft.com/en-us/product/PowerBIVisuals/coacervolimited1596856650797.htmlcontent_certified)
+
+:::info Renamed in 2.0
+Prior to version 2.0, this edition was named **HTML Content (lite)**. It has been renamed **HTML Content Secure** to better reflect what it is - the sanitized, certification-compliant build. It is the same visual: existing reports are unaffected.
+:::
 
 This is a build of the visual, with a reduced subset of supported tags and no external comms that [complies with Microsoft's certification rules](https://docs.microsoft.com/en-us/power-bi/developer/visuals/power-bi-custom-visuals-certified?WT.mc_id=DP-MVP-5003712#source-code-requirements) for those who can only work with certified visuals.
 
@@ -32,7 +38,7 @@ This is a build of the visual, with a reduced subset of supported tags and no ex
 
 Both editions render rich, dynamic HTML in your Power BI reports. The right choice depends on what you need from the visual.
 
-**Choose Lite (Certified) if you need any of:**
+**Choose Secure (Certified) if you need any of:**
 
 - Microsoft AppSource certification for distribution within your organisation.
 - [Export to PowerPoint or PDF](https://learn.microsoft.com/en-us/power-bi/developer/visuals/power-bi-custom-visuals-certified#why-should-i-care-about-getting-my-visual-certified?WT.mc_id=DP-MVP-5003712) of reports that include the visual.
@@ -42,6 +48,7 @@ Both editions render rich, dynamic HTML in your Power BI reports. The right choi
 
 - External content such as remote images, web fonts, or iframes.
 - The broadest HTML, CSS, and SVG surface the Power BI custom-visual sandbox permits.
-- Features rejected by the lite sanitizer (see [Sanitization](sanitization) and [Limitations](limitations) for details).
+- Features rejected by the Secure edition's sanitizer (see [Sanitization](sanitization) and [Limitations](limitations) for details).
+- Embedded scripting for interactive content (see [Scripting](scripting)).
 
-If you are unsure, start with **Lite (Certified)** - you can switch to **Regular** if you hit a sanitizer rejection you cannot work around. The two editions are separate AppSource visuals, so switching is a matter of installing the other one and re-pointing your report.
+If you are unsure, start with **Secure (Certified)** - you can switch to **Regular** if you hit a sanitizer rejection you cannot work around. The two editions are separate AppSource visuals, so switching is a matter of installing the other one and re-pointing your report.
