@@ -18,7 +18,7 @@ If you're serious about content, then it's recommended that you spend some time 
 
 ## Choice of Visual Edition
 
-In the regular edition, the visual is not certified and can handle more HTML use cases, but it does not receive certification benefits, such as export to PowerPoint or PDF. In **HTML Content (lite)**, the visual has these additional benefits, but in order to comply with certification rules, it can only handle simpler HTML use cases as the cost of more security for the report viewer.
+In the regular edition, the visual is not certified and can handle more HTML use cases, but it does not receive certification benefits, such as export to PowerPoint or PDF. In **HTML Content Secure**, the visual has these additional benefits, but in order to comply with certification rules, it can only handle simpler HTML use cases as the cost of more security for the report viewer.
 
 Please refer to the [Visual Editions](visual-editions) page for more information on what HTML tags are permitted in the certified edition.
 
