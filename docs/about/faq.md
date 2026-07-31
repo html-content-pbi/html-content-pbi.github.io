@@ -16,7 +16,7 @@ All development, promotion, and [support](./support) I provide for the visual ar
 
 ### Will the Visual be Certified?
 
-There is a separate edition of the visual in AppSource, named **HTML Content (lite)**, which is certified. This version has a reduced feature set compared to the regular edition, but still complies with Microsoft's rules for certified visuals. You can read more about the differences between the two editions on the [Visual Editions](visual-editions) page.
+There is a separate edition of the visual in AppSource, named **HTML Content Secure** (formerly **HTML Content (lite)**), which is certified. This version has a reduced feature set compared to the regular edition, but still complies with Microsoft's rules for certified visuals. You can read more about the differences between the two editions on the [Visual Editions](visual-editions) page.
 
 For the regular edition of the visual, this cannot be certified under the current rules. This allows you to write as much HTML as the Microsoft custom visual sandbox permits. As such, this does not conform to [the current rules](https://docs.microsoft.com/en-us/power-bi/developer/visuals/power-bi-custom-visuals-certified?WT.mc_id=DP-MVP-5003712#source-code-requirements), specifically:
 
@@ -42,7 +42,15 @@ Custom visuals aren't allowed to open hyperlinks arbitrarily, but we have an [Al
 
 Custom visuals have several restrictions imposed by Power BI, so unfortunately, some things just won't work. There's [a page dedicated to the limitations we know about](limitations), which may help you determine whether you're trying to do something the visual cannot.
 
-## HTML Content (lite) sanitization 🛡️ {#lite-sanitization}
+### Can I Use JavaScript in My Content?
+
+In the **Regular** edition, yes - embedded `<script/>` elements and inline event handlers execute. This is not formally supported, but from version 2.0 there is a documented set of [scripting guidelines](scripting) covering execution order, templates, and debugging. **HTML Content Secure** strips scripts as part of [certification](sanitization), so scripting is never available there. Only use scripts with content you fully control.
+
+### Why Does the Same Content Render Differently in Two Visuals?
+
+From version 2.0, the visual renders content with browser-standard defaults and a flat row structure. Visuals migrated from v1.x automatically keep the legacy v1.x styling and row structure instead, so existing reports don't change. The **Use legacy (v1) rendering** toggle on the [Compatibility](properties-compatibility) card switches a visual either way.
+
+## HTML Content Secure sanitization 🛡️ {#lite-sanitization}
 
 ### My `<style/>` block disappeared after I used `//` comments {#style-block-disappeared}
 
