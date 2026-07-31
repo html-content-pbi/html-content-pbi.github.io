@@ -1,36 +1,40 @@
 ---
 sidebar_position: 210
-description: What the HTML Content (lite) visual strips from HTML and CSS payloads, and why.
+description: What the HTML Content Secure visual strips from HTML and CSS payloads, and why.
 slug: /sanitization
 ---
 
 # Sanitization 🛡️
 
 :::note Certified Visual Only
-This page applies to [HTML Content (lite)](visual-editions#lite-certified), the certified edition of the visual.
+This page applies to [**HTML Content Secure**](visual-editions#lite-certified), the certified edition of the visual (named _HTML Content (lite)_ prior to 2.0).
 
 The regular [HTML Content](visual-editions#regular) edition does **not** sanitize content - it passes values through to the Power BI custom-visual sandbox and relies on the sandbox as its only line of defense. This is the key behavioral difference between the two editions.
 :::
 
-HTML Content (lite) treats every value passed in from your data as untrusted input and runs it through a sanitizer before adding it to the DOM. This protects report viewers from cross-site scripting, data exfiltration, and content-spoofing attacks, and is required by Microsoft's AppSource certification rules.
+HTML Content Secure treats every value passed in from your data as untrusted input and runs it through a sanitizer before adding it to the DOM. This protects report viewers from cross-site scripting, data exfiltration, and content-spoofing attacks, and is required by Microsoft's AppSource certification rules.
 
 ## What gets sanitized {#where-sanitization-runs}
 
 Every value that comes in from your data is treated as untrusted. The visual parses it and runs the whole tree through the sanitizer before any of it reaches the page. It applies across four surfaces:
 
 1. **HTML elements**
-    - Every tag is checked against the allowed-tag list.
-    - Anything not on it is dropped, along with its content. See [HTML elements](#html-elements).
+   - Every tag is checked against the allowed-tag list.
+   - Anything not on it is dropped, along with its content. See [HTML elements](#html-elements).
 2. **HTML attributes**
-    - Every attribute is checked against the global and per-element allowlists.
-    - Disallowed attributes are dropped, and some (such as event handlers) cause the whole element to be removed. See [HTML attributes](#html-attributes).
+   - Every attribute is checked against the global and per-element allowlists.
+   - Disallowed attributes are dropped, and some (such as event handlers) cause the whole element to be removed. See [HTML attributes](#html-attributes).
 3. **URLs**
-    - URL-bearing attributes (`href`, `src`, `xlink:href`) are normalized and scheme-checked. See [URL schemes](#url-schemes).
+   - URL-bearing attributes (`href`, `src`, `xlink:href`) are normalized and scheme-checked. See [URL schemes](#url-schemes).
 4. **CSS**
-    - Styling is sanitized wherever it appears, through the single shared rule set described under [CSS-specific rules](#css-specific-rules):
-    - Inline `style` attributes on any element - for example, `<p style="color: red">`.
-    - `<style>` tag bodies embedded in your HTML payload.
-    - The custom stylesheet set via the [Stylesheet](properties-stylesheet) property.
+   - Styling is sanitized wherever it appears, through the single shared rule set described under [CSS-specific rules](#css-specific-rules):
+   - Inline `style` attributes on any element - for example, `<p style="color: red">`.
+   - `<style>` tag bodies embedded in your HTML payload.
+   - The custom stylesheet set via the [Stylesheet](properties-stylesheet) property.
+
+:::tip See exactly what was removed
+From version 2.0, the [Diagnostics dialog's Sanitizer tab](diagnostics#sanitizer-tab) lists everything the sanitizer removed from your content and which rule applied - the fastest way to answer "why did my content disappear?".
+:::
 
 ## What's allowed
 
