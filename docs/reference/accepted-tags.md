@@ -287,15 +287,15 @@ Also see [Sanitization](sanitization) for how content is filtered within allowed
   </tr>
 </table>
 
-\* `<img/>` can be used with [data URLs](https://developer.mozilla.org/en-US/docs/web/http/basics_of_http/data_urls).
+\* `<img>` can be used with [data URLs](https://developer.mozilla.org/en-US/docs/web/http/basics_of_http/data_urls).
 
 - Content cannot be loaded from remote endpoints, in order to comply with visual certification rules.
 - For raster image MIME types (`image/png`, `image/jpeg`, `image/gif`, `image/webp`, `image/bmp`) the URL must be base64-encoded (`data:image/png;base64,…`); plain-text variants are rejected.
-- From version 1.6.1 onwards, `data:image/svg+xml` is also permitted and accepts `;base64,`, `;utf8,`, and bare-comma forms; the inner SVG is recursively scanned and `<script/>`, `<foreignObject/>`, and `<use/>` are stripped.
+- From version 1.6.1 onwards, `data:image/svg+xml` is also permitted and accepts `;base64,`, `;utf8,`, and bare-comma forms; the inner SVG is recursively scanned and `<script>`, `<foreignObject>`, and `<use>` are stripped.
 
-All [SVG](https://developer.mozilla.org/en-US/docs/Web/SVG) tags should also be supported, with the exception of `<use/>`, `<script/>`, and `<foreignObject/>`.
+All [SVG](https://developer.mozilla.org/en-US/docs/Web/SVG) tags should also be supported, with the exception of `<use>`, `<script>`, and `<foreignObject>`.
 
-- From version 1.6.1 onwards, SMIL animation tags (`<animate/>`, `<animateMotion/>`, `<animateTransform/>`, `<set/>`) are also permitted, with restrictions on which attributes they may target - see [Sanitization](sanitization) for the safe-target list.
+- From version 1.6.1 onwards, SMIL animation tags (`<animate>`, `<animateMotion>`, `<animateTransform>`, `<set>`) are also permitted, with restrictions on which attributes they may target - see [Sanitization](sanitization) for the safe-target list.
 
 ## See also
 

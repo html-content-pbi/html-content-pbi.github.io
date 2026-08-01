@@ -42,9 +42,9 @@ From version 2.0, the [Diagnostics dialog's Sanitizer tab](diagnostics#sanitizer
 
 The visual permits a specific set of block, inline, table, image/style, and SVG elements. The full list is on the [Accepted Tags](accepted-tags) page.
 
-`<script/>`, `<iframe/>`, `<object/>`, `<embed/>`, `<link/>`, `<meta/>`, `<form/>`, and any element not on the allowed-tag list are dropped entirely, along with all their content.
+`<script>`, `<iframe>`, `<object>`, `<embed>`, `<link>`, `<meta>`, `<form>`, and any element not on the allowed-tag list are dropped entirely, along with all their content.
 
-From version 1.6.1 onwards, SMIL animation tags (`<animate/>`, `<animateMotion/>`, `<animateTransform/>`, `<set/>`) are permitted, with restrictions on which attributes they may target. The `attributeName` value is checked against a denylist that rejects animation against:
+From version 1.6.1 onwards, SMIL animation tags (`<animate>`, `<animateMotion>`, `<animateTransform>`, `<set>`) are permitted, with restrictions on which attributes they may target. The `attributeName` value is checked against a denylist that rejects animation against:
 
 - URL-bearing attributes (`href`, `xlink:href`, `src`, `srcdoc`, `srcset`, `formaction`, `action`, `ping`, `background`, `poster`).
 - The bulk `style` attribute.
@@ -61,15 +61,15 @@ Element-specific attributes are allowed on a per-element basis. A few of the com
 
 | Element            | Attributes                                              |
 | ------------------ | ------------------------------------------------------- |
-| `<a/>`             | `href`, `target`, `rel`, `download`, `hreflang`, `type` |
-| `<img/>`           | `src`, `alt`, `width`, `height`, `loading`, `decoding`  |
-| `<del/>`, `<ins/>` | `cite`, `datetime`                                      |
-| `<time/>`          | `datetime`                                              |
-| `<output/>`        | `for`, `form`, `name`                                   |
-| `<meter/>`         | `value`, `min`, `max`, `low`, `high`, `optimum`         |
-| `<progress/>`      | `value`, `max`                                          |
-| `<details/>`       | `open`                                                  |
-| `<table/>` cells   | `colspan`, `rowspan`, `headers`, `scope`                |
+| `<a>`             | `href`, `target`, `rel`, `download`, `hreflang`, `type` |
+| `<img>`           | `src`, `alt`, `width`, `height`, `loading`, `decoding`  |
+| `<del>`, `<ins>` | `cite`, `datetime`                                      |
+| `<time>`          | `datetime`                                              |
+| `<output>`        | `for`, `form`, `name`                                   |
+| `<meter>`         | `value`, `min`, `max`, `low`, `high`, `optimum`         |
+| `<progress>`      | `value`, `max`                                          |
+| `<details>`       | `open`                                                  |
+| `<table>` cells   | `colspan`, `rowspan`, `headers`, `scope`                |
 | SVG elements       | The standard SVG attribute set for each element         |
 
 Anything not on the global or element-specific list is dropped.
@@ -78,7 +78,7 @@ A handful of attributes are **stripped from every element regardless of context*
 
 - `srcdoc` - embeds an HTML document inside an attribute that then executes as a real document.
 - `formaction`, `action` - form submission targets, used to redirect submitted data to attacker-controlled URLs.
-- `ping` - fires network requests to arbitrary URLs when an `<a/>` is clicked.
+- `ping` - fires network requests to arbitrary URLs when an `<a>` is clicked.
 - `background` - legacy HTML URL-loading attribute.
 - `poster` - loads an external image before playback.
 - `srcset` - use plain `src` instead.
@@ -94,7 +94,7 @@ For attributes that carry URLs (`href`, `src`, `xlink:href`):
   - **The scheme allowlist** governs which schemes survive when the toggle is enabled. Only `https:` and `http:` pass; Power BI's `launchUrl()` API handles the navigation. A `javascript:` (or other non-http) scheme is still dropped even with the toggle on - both gates apply.
 - `data:` URIs are allowed for `<img src>` and equivalent image attributes, but with MIME-conditional encoding rules:
   - Raster MIME types (`image/png`, `image/jpeg`, `image/gif`, `image/webp`, `image/bmp`) must be **base64-encoded** (`data:image/png;base64,...`). A plain-text `data:image/png,<html>...</html>` is rejected because real binary image data cannot be plain-text - such a URI is always smuggling HTML or text behind an image declaration.
-  - `image/svg+xml` is permitted from version 1.6.1 onwards and accepts `;base64,`, `;utf8,`, and bare-comma forms (SVG is text by spec). The inner SVG payload is recursively scanned and any `<script/>`, `<foreignObject/>`, or `<use/>` element is stripped. Malformed percent-encoding is rejected fail-closed.
+  - `image/svg+xml` is permitted from version 1.6.1 onwards and accepts `;base64,`, `;utf8,`, and bare-comma forms (SVG is text by spec). The inner SVG payload is recursively scanned and any `<script>`, `<foreignObject>`, or `<use>` element is stripped. Malformed percent-encoding is rejected fail-closed.
 - URL attributes are [NFKC-normalized](https://symbolfyi.com/guides/unicode-normalization-guide/) before scheme matching. This catches obfuscation attempts such as `<a href="ｊavascript:...">` (using a fullwidth `ｊ`), which would otherwise slip past a naive scheme check.
 - All other schemes (`javascript:`, `vbscript:`, `livescript:`, `mocha:`, `blob:`, `file:`, `ftp:`, `mailto:`, `tel:`, etc.) are rejected.
 
@@ -114,7 +114,7 @@ A `data:` URI inside CSS `url()` is only accepted if its MIME type is on the ima
 
 - `data:text/html,<script>...</script>` smuggling executable HTML.
 - `data:image/png,<html>...</html>` declaring an image MIME but carrying plain text.
-- `data:image/svg+xml,...` declaring an image MIME but carrying SVG (which can contain `<script/>`).
+- `data:image/svg+xml,...` declaring an image MIME but carrying SVG (which can contain `<script>`).
 
 ### `@import` and `@font-face`
 
@@ -170,7 +170,7 @@ After the CSS sanitizer has parsed, walked, and re-serialized a stylesheet, a fi
 
 - **I want to attach click handlers.** Use Power BI's built-in [cross-filtering and tooltip features](interactivity) instead. Inline event handlers cause the entire element to be dropped.
 
-- **I want to use an SVG image inline.** From version 1.6.1, `data:image/svg+xml` is accepted on `<img src>`. Inline (`;utf8,`) and base64 encodings both work. The inner SVG is recursively scanned; `<script/>`, `<foreignObject/>`, and `<use/>` are stripped before rendering. Malformed percent-encoding rejects fail-closed.
+- **I want to use an SVG image inline.** From version 1.6.1, `data:image/svg+xml` is accepted on `<img src>`. Inline (`;utf8,`) and base64 encodings both work. The inner SVG is recursively scanned; `<script>`, `<foreignObject>`, and `<use>` are stripped before rendering. Malformed percent-encoding rejects fail-closed.
 
 - **I need a feature that the sanitizer rejects.** If the restriction is incompatible with your use case, the regular [HTML Content](visual-editions#regular) edition does not sanitize. Note that it is not certified and relies solely on the Power BI sandbox.
 
@@ -186,9 +186,9 @@ Most likely one of:
 
 The visual emits `console.warn` messages explaining what was dropped - check the browser console.
 
-### My `<style/>` tag is empty
+### My `<style>` tag is empty
 
-The defense-in-depth pass matched a dangerous token in the final output. The whole `<style/>` body is replaced with empty.
+The defense-in-depth pass matched a dangerous token in the final output. The whole `<style>` body is replaced with empty.
 
 A common cause is using `//` as a comment marker in your CSS. `//` is not a valid CSS comment - see the [FAQ entry](faq#style-block-disappeared) for the full explanation and the spec link. Use `/* ... */` block comments instead.
 
@@ -198,11 +198,11 @@ Check the `src` value:
 
 - External URLs (`http://`, `https://`) are blocked. Convert to a base64 data URI.
 - `data:image/png,...` (or any other raster MIME type) without `;base64,` is rejected. Re-encode as base64.
-- `data:image/svg+xml,...` is permitted from version 1.6.1 onwards. If your SVG isn't rendering, check whether it relied on `<script/>`, `<foreignObject/>`, or `<use/>` - those are stripped during the inner-payload scan. Malformed percent-encoding is also rejected.
+- `data:image/svg+xml,...` is permitted from version 1.6.1 onwards. If your SVG isn't rendering, check whether it relied on `<script>`, `<foreignObject>`, or `<use>` - those are stripped during the inner-payload scan. Malformed percent-encoding is also rejected.
 
 ### My SVG animation isn't running {#svg-animation-not-running}
 
-SMIL animation tags (`<animate/>`, `<animateMotion/>`, `<animateTransform/>`, `<set/>`) are permitted from version 1.6.1, but their `attributeName` is checked against a denylist. The most common cause of a non-running animation is that the target attribute is on that denylist - see [HTML attributes](#html-attributes) above for the full list and the safe-target guidance.
+SMIL animation tags (`<animate>`, `<animateMotion>`, `<animateTransform>`, `<set>`) are permitted from version 1.6.1, but their `attributeName` is checked against a denylist. The most common cause of a non-running animation is that the target attribute is on that denylist - see [HTML attributes](#html-attributes) above for the full list and the safe-target guidance.
 
 ### My link isn't clickable, or its `href` is missing {#href-stripped}
 
@@ -213,7 +213,7 @@ From version 1.6.1, `href` on `<a>` is gated on the [Allow opening URLs](propert
 Most common causes:
 
 - The element had an event handler (`onclick`, `onload`, etc.) - the entire element is dropped, not just the attribute.
-- The element is not on the [allowed-tag list](visual-editions#lite-certified) (`<script/>`, `<iframe/>`, `<object/>`, etc.).
+- The element is not on the [allowed-tag list](visual-editions#lite-certified) (`<script>`, `<iframe>`, `<object>`, etc.).
 
 ## Full reference
 

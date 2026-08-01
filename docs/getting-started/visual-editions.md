@@ -19,7 +19,7 @@ For both editions, the minimum required versions are:
 
 This edition of the visual tries to provide as much functionality as possible within the custom visual sandbox. Note that Microsoft does impose some limitations on all custom visuals, not just certified vs. uncertified ones so it is not possible to do everything you can do in a regular web application. You can learn more about these limitations on the [Limitations](limitations) page.
 
-From version 2.0, [scripting guidelines](scripting) are documented for this edition: embedded `<script/>` elements and inline event handlers execute, which enables interactive, measure-driven content. This is not formally supported, but it works reliably within the documented patterns.
+From version 2.0, [scripting guidelines](scripting) are documented for this edition: embedded `<script>` elements and inline event handlers execute, which enables interactive, measure-driven content. This is not formally supported, but it works reliably within the documented patterns.
 
 ## Secure (Certified) 🛡️ {#lite-certified}
 

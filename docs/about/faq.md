@@ -44,7 +44,7 @@ Custom visuals have several restrictions imposed by Power BI, so unfortunately, 
 
 ### Can I Use JavaScript in My Content?
 
-In the **Regular** edition, yes - embedded `<script/>` elements and inline event handlers execute. This is not formally supported, but from version 2.0 there is a documented set of [scripting guidelines](scripting) covering execution order, templates, and debugging. **HTML Content Secure** strips scripts as part of [certification](sanitization), so scripting is never available there. Only use scripts with content you fully control.
+In the **Regular** edition, yes - embedded `<script>` elements and inline event handlers execute. This is not formally supported, but from version 2.0 there is a documented set of [scripting guidelines](scripting) covering execution order, templates, and debugging. **HTML Content Secure** strips scripts as part of [certification](sanitization), so scripting is never available there. Only use scripts with content you fully control.
 
 ### Why Does the Same Content Render Differently in Two Visuals?
 
@@ -52,7 +52,7 @@ From version 2.0, the visual renders content with browser-standard defaults and 
 
 ## HTML Content Secure sanitization 🛡️ {#lite-sanitization}
 
-### My `<style/>` block disappeared after I used `//` comments {#style-block-disappeared}
+### My `<style>` block disappeared after I used `//` comments {#style-block-disappeared}
 
 Use CSS-compliant `/* ... */` block comments. `//` is not a valid CSS comment - it was silently tolerated by the visual's previous sanitizer (`sanitize-html`), but from version 1.6.0 onwards the CSS sanitizer (postcss-based) correctly rejects it. Anything from `//` to the end of the line is treated as invalid syntax, which usually takes the surrounding rule or declaration with it.
 
