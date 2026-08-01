@@ -49,8 +49,11 @@ const config: Config = {
           // ponytail: next is dev-only — production builds ship 1.6 alone, so it
           // never appears in the version dropdown. To publish next later, add
           // "current" to the production list (or drop onlyIncludeVersions).
+          // INCLUDE_NEXT=1 forces next into a build so its links get checked.
           onlyIncludeVersions:
-            process.env.NODE_ENV === "development" ? ["current", "1.6"] : ["1.6"],
+            process.env.NODE_ENV === "development" || process.env.INCLUDE_NEXT
+              ? ["current", "1.6"]
+              : ["1.6"],
           // Exclude agent-internal work artifacts from the published site.
           // docs/plans/ holds implementation plans authored for agent execution;
           // they are not user-facing documentation and their internal cross-link
