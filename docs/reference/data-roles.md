@@ -34,7 +34,7 @@ If using a measure, the visual only has context for that particular value, e.g.:
 Prior to version 2.0, this data role was named **Granularity**. It has been renamed to better describe its purpose - creating row context (via columns), measure context for tooltips and/or drillthrough, or a combination of both. Behavior is unchanged, and existing reports are unaffected.
 :::
 
-The **Context** data role is used to generate additional row context using one or many columns (and optionally, measures), without adding the value of those columns to the visual output.
+The **Context** data role is used to generate additional row context using one or many columns (and optionally, measures), without adding the value of those fields to the visual output.
 
 This is useful if you want to add a single measure to the **Values** data role, but generate HTML for a specific level of granularity.
 
