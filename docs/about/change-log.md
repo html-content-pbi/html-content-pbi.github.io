@@ -9,7 +9,7 @@ slug: /change-log
 ## 2.0.0 (TBD)
 
 :::warning In Beta Testing
-This release is currently in beta testing. Due to the AppSource submission process being lengthy and difficult to roll back, it is currently only available for download while we're testing and validating it. See [this blog post](/blog/2-0-0-beta) for more details.
+This release is currently in beta testing. Due to the AppSource submission process being lengthy and difficult to roll back, it is currently only available for download while we're testing and validating it. <!--See [this blog post](/blog/2-0-0-beta) for more details.-->
 :::
 
 The biggest update to the visual so far, focused on giving authors more control over layout, rendering, and debugging.
