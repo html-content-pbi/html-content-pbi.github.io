@@ -44,6 +44,7 @@ const config: Config = {
             current: {
               label: "2.0 🚧",
               banner: "unreleased",
+              noIndex: true,
             },
           },
           // ponytail: next is dev-only — production builds ship 1.6 alone, so it

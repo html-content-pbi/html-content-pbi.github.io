@@ -51,3 +51,9 @@
 .social-links a:hover {
   text-decoration: none;
 }
+
+/* ponytail: CSS-hide the unreleased 2.0 (next) entry from the version
+   dropdown; swizzle DocsVersionDropdownNavbarItem if this ever needs logic. */
+.navbar .dropdown__menu a[href^="/docs/next"] {
+  display: none;
+}
