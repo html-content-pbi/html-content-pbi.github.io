@@ -6,12 +6,65 @@ slug: /change-log
 
 # Change Log
 
+## 2.0.0 (TBD)
+
+:::warning In Beta Testing
+This release is currently in beta testing. Due to the AppSource submission process being lengthy and difficult to roll back, it is currently only available for download while we're testing and validating it. See [this blog post](/blog/2-0-0-beta) for more details.
+:::
+
+The biggest update to the visual so far, focused on giving authors more control over layout, rendering, and debugging.
+
+### HTML Content (lite) is now HTML Content Secure 🛡️ {#secure-rename}
+
+The certified edition has been renamed from **HTML Content (lite)** to **HTML Content Secure**, to better reflect what it is - the sanitized, certification-compliant build. It is the same visual, and existing reports are unaffected. Earlier entries in this change log keep the name they shipped under. See [Visual Editions](visual-editions#lite-certified) for the edition comparison.
+
+### Legacy (v1.x) Rendering Compatibility
+
+Version 1.x had some opinionated styling that applied to the visual body, as well as a deeper structure applied to each row than might have been necessary. As HTML Content has a ~7-year legacy at the time of release, making changes to these things without user consent is a potentially problematic migration.
+
+To keep migrated reports rendering identically, a new [Compatibility](properties-compatibility) card provides a **Use legacy (v1) rendering** toggle:
+
+- Visuals **migrated from v1.6** get it enabled automatically - same styling rules, same row structure as before.
+- **Freshly added** visuals get it disabled, and render with more sensible defaults.
+
+You can flip the toggle either way at any time. See [Compatibility](properties-compatibility) for exactly what changes and why.
+
+### Templates
+
+Wrap your rows in a shared HTML shell without repeating markup in your measures, via the new _Templates_ property card:
+
+- A **Body template** wraps all rows - the `{{content}}` token marks where rows are injected.
+- A **Row template** wraps each row - the `{{row}}` token marks where that row's value goes.
+- The body template - and the [stylesheet](properties-stylesheet) - can each be driven by a measure via conditional formatting (_fx_).
+- Because templates provide more control over the DOM subtree, they make [interactivity](interactivity) easier to achieve and integrate than ever before and can remove the need for many cases where a singular measure may have been your only solution. As such, the [Simple Worked Example](simple-example) has been modified to use templates as the recommended way of working with visual designs.
+
+Refer to the [Templates](properties-templates) page for full details.
+
+### Render Modes
+
+A new [**On data update**](properties-content-formatting#on-data-update) property controls how the visual updates the DOM when data changes: **Rebuild content** redraws everything, while **Preserve unchanged content** keeps entries whose value hasn't changed - so embedded iframes, inputs, and scripts don't reload unnecessarily.
+
+### Diagnostics
+
+Power BI Desktop has no browser dev tools, so the visual now has its own: enable [**Content formatting > Enable diagnostics**](properties-content-formatting#enable-diagnostics) and, while editing, open the [Diagnostic information dialog](diagnostics) to inspect the processed raw HTML, sanitizer removals (Secure edition), captured console output, and a log of host events.
+
+### Theme Colors
+
+The report's active theme palette is now exposed to your content and stylesheet as [`--pbi-theme-*` CSS custom properties](theme-colors) - data colors, structural, sentiment, and divergent slots, updated live when the theme or Windows high contrast changes. Works in every edition.
+
+### Suppressing Interactivity
+
+A new [`data-hc-suppress` attribute](interactivity#suppressing-interactivity) lets you mark elements (modals, popovers, custom controls) as inert to the visual's cross-filter, context-menu, and tooltip handling - declaratively, in every edition.
+
+### Scripting Guidelines
+
+Scripting in the Regular edition has long been possible but undocumented and hard to support. With Templates and Diagnostics now available, there is a documented set of [scripting guidelines](scripting) covering execution order, recommended patterns, and debugging. Scripts remain unavailable in **HTML Content Secure** due to certification rules.
+
+### Minor Changes
+
+- The **Granularity** data role has been renamed to [**Context**](data-roles#granularity), to better illustrate its purpose of creating row context (via columns), measure context for tooltips and/or drillthrough, or a combination of both. Behavior is unchanged.
 
 ## 1.6.2 (2026-06-18)
-
-:::warning Pending Deployment
-The AppSource listing has been updated, but it can take up to two weeks from this date for MS to deploy updates to all Power BI tenants.
-:::
 
 ### Bugs Fixed
 
@@ -22,13 +75,12 @@ The AppSource listing has been updated, but it can take up to two weeks from thi
 ### Bugs Fixed
 
 - Some content based on HTML generated by applications like Word or Outlook would not always propagate the desired body styling from the properties. To try and mitigate this without the need for a [stylesheet](properties-stylesheet), an [**Override inline styles**](properties-content-formatting#override-inline-styles) property has been added to the _Default body styling_ property card.
-
   - This will attempt to propagate the body styling mandated in these properties (if available) throughout the DOM.
   - It is disabled by default, but it may help overcome these situations without having to use a stylesheet.
   - If your content still does not format as expected, then a [stylesheet](properties-stylesheet) may be required to manage it correctly.
 
-- The [**Show raw HTML** property](properties-content-formatting#show-raw-html) was encoding some portions of HTML, meaning that it did not represent the HTML 
-input to the DOM. This has been improved.
+- The [**Show raw HTML** property](properties-content-formatting#show-raw-html) was encoding some portions of HTML, meaning that it did not represent the HTML
+  input to the DOM. This has been improved.
 
 - The unit on the [**Font size** property](properties-content-formatting#font-size) has been corrected to `pt`.
 
@@ -39,10 +91,9 @@ Following the [April 2026 lite-certification update](#html-content-lite-specific
 This patch release aims to work with the updated certification rules and as many of these known cases as possible, keeping sanitization tight while improving the permissibility of legitimate cases. See [Sanitization](sanitization) for the full rule set.
 
 - SVG sanitization redesigned around a per-tag attribute denylist (replacing the previous over-strict allowlist).
-- SMIL animation tags (`<animate/>`, `<animateMotion/>`, `<animateTransform/>`, `<set/>`) are now permitted, with `attributeName`-based restrictions on which attributes they may target.
-- `data:image/svg+xml` URIs are now accepted on `<img src>` in `;base64,`, `;utf8,`, and bare-comma forms. The inner SVG payload is recursively scanned, and `<script/>`, `<foreignObject/>`, and `<use/>` are stripped.
+- SMIL animation tags (`<animate>`, `<animateMotion>`, `<animateTransform>`, `<set>`) are now permitted, with `attributeName`-based restrictions on which attributes they may target.
+- `data:image/svg+xml` URIs are now accepted on `<img src>` in `;base64,`, `;utf8,`, and bare-comma forms. The inner SVG payload is recursively scanned, and `<script>`, `<foreignObject>`, and `<use>` are stripped.
 - Multi-line and comma-separated CSS selectors are no longer silently dropped.
-- Default body styling is now overridden when content carries office-paste residue (Outlook / Teams / Word) and no custom stylesheet is supplied.
 - SVG payload scanning has been extended to functional-IRI presentation attributes (`mask`, `clip-path`, `filter`, `marker-*`).
 - Hyperlink `href` handling has been hardened for certification: when [**Allow opening URLs**](properties-content-formatting#allow-opening-urls) is disabled (the default), `href` and `xlink:href` are now stripped from `<a>` elements entirely, rather than left in the DOM with the click suppressed.
 
@@ -68,11 +119,11 @@ Ongoing refinement of Microsoft's custom-visual certification rules has driven a
 
 #### New Tags
 
-Several tags were found to be missing from the safe list and have been added: `<del/>`, `<details/>`, `<ins/>`, `<meter/>`, `<output/>`, `<progress/>`, `<search/>`, `<summary/>`. An SVG filter primitive (`<feMergeNode/>`) that was misspelled in the safe list has also been restored.
+Several tags were found to be missing from the safe list and have been added: `<del>`, `<details>`, `<ins>`, `<meter>`, `<output>`, `<progress>`, `<search>`, `<summary>`. An SVG filter primitive (`<feMergeNode>`) that was misspelled in the safe list has also been restored.
 
 #### Bugs Fixed
 
-- Fixed an issue in HTML sanitization where the `<feDisplacementMap/>` SVG tag was not being correctly processed.
+- Fixed an issue in HTML sanitization where the `<feDisplacementMap>` SVG tag was not being correctly processed.
 
 ## 1.5.0 (2024-04-29)
 
@@ -90,7 +141,7 @@ Several tags were found to be missing from the safe list and have been added: `<
 
 ### Minor Enhancements
 
-- DIN has been added as a valid font (you can use either `din` or `wf_standard-font` in your styling to use).
+- DIN has been added as a valid font (you can use either `din` or `wf_standard-font` in your styling).
 
 ### Bugs Fixed
 
@@ -155,7 +206,7 @@ Refer to the [Stylesheet](properties-stylesheet) page for more information on ho
 
 ### Show Raw HTML
 
-[A new **Show raw HTML** property](properties-content-formatting#show-raw-html) is available under the **Content formatting** property menu. If enabled, the generated HTML is now displayed in a read only `textarea` element.
+[A new **Show raw HTML** property](properties-content-formatting#show-raw-html) is available under the **Content formatting** property menu. If enabled, the generated HTML is now displayed in a read-only `textarea` element.
 
 ## 1.1.0 (2021-01-05)
 
@@ -165,7 +216,7 @@ Previously, the message displayed if there was no data available was hard-coded.
 
 ### Default Title No Longer Used
 
-When creating a new instance of the visual, the title will no longer be shown be default (like for the table visual). This can be enabled or modified in the usual way in the properties pane.
+When creating a new instance of the visual, the title will no longer be shown by default (like for the table visual). This can be enabled or modified in the usual way in the properties pane.
 
 ## 1.0.2 (2020-08-28)
 
@@ -175,7 +226,7 @@ Sorting has been added to the visual, which is accessible from the visual header
 
 ### Bugs Fixed
 
-- The visual would not render ordered (`<ol/>`) or unordered (`<ul/>`) line item (`<li/>`) elements due to styling applied higher up in the custom visual host container. This has been resolved to work as expected.
+- The visual would not render ordered (`<ol>`) or unordered (`<ul>`) line item (`<li>`) elements due to styling applied higher up in the custom visual host container. This has been resolved to work as expected.
 
 ## 1.0.1 (2020-07-28)
 

@@ -18,7 +18,7 @@ If you're serious about content, then it's recommended that you spend some time 
 
 ## Choice of Visual Edition
 
-In the regular edition, the visual is not certified and can handle more HTML use cases, but it does not receive certification benefits, such as export to PowerPoint or PDF. In **HTML Content (lite)**, the visual has these additional benefits, but in order to comply with certification rules, it can only handle simpler HTML use cases as the cost of more security for the report viewer.
+In the regular edition, the visual is not certified and can handle more HTML use cases, but it does not receive certification benefits, such as export to PowerPoint or PDF. In **HTML Content Secure**, the visual has these additional benefits, but in order to comply with certification rules, it can only handle simpler HTML use cases as the cost of more security for the report viewer.
 
 Please refer to the [Visual Editions](visual-editions) page for more information on what HTML tags are permitted in the certified edition.
 
@@ -56,7 +56,7 @@ If you know of any that do work, your knowledge can greatly assist other users. 
 
 ## Custom Visuals: High-Level
 
-All custom visuals are themselves hosted in an `<iframe/>` element that is [sandboxed](https://www.w3schools.com/tags/att_iframe_sandbox.asp) from the main Power BI application. The only permission they have enabled is `allow-scripts`.
+All custom visuals are themselves hosted in an `<iframe>` element that is [sandboxed](https://www.w3schools.com/tags/att_iframe_sandbox.asp) from the main Power BI application. The only permission they have enabled is `allow-scripts`.
 
 - Because the `allow-same-origin` permission is disabled, another protection is that the visual does not belong to `powerbi.com` (a revocation of the `allow-same-origin` policy)
 
@@ -64,7 +64,7 @@ All custom visuals are themselves hosted in an `<iframe/>` element that is [sand
 
 - This means that visuals can't just "reach in and grab" data from your model, and data can only be supplied to the visual from Power BI.
 
-- According to [the MDN documentation](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/iframe) on `<iframe/>`, having a combination of `allow-scripts` and `allow-same-origin` is not a good idea:
+- According to [the MDN documentation](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/iframe) on `<iframe>`, having a combination of `allow-scripts` and `allow-same-origin` is not a good idea:
 
   > When the embedded document has the same origin as the embedding page, it is strongly discouraged to use both `allow-scripts` and `allow-same-origin`, as that lets the embedded document remove the `sandbox` attribute - making it no more secure than not using the `sandbox` attribute at all.
 

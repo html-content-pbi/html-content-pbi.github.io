@@ -38,6 +38,27 @@ const config: Config = {
       {
         docs: {
           sidebarPath: "./sidebars.ts",
+          // 1.6 is the published baseline; docs/ is the "next" working copy.
+          lastVersion: "1.6",
+          versions: {
+            current: {
+              label: "2.0 🚧",
+              banner: "unreleased",
+            },
+          },
+          // ponytail: next is dev-only — production builds ship 1.6 alone, so it
+          // never appears in the version dropdown. To publish next later, add
+          // "current" to the production list (or drop onlyIncludeVersions).
+          // INCLUDE_NEXT=1 forces next into a build so its links get checked.
+          onlyIncludeVersions:
+            process.env.NODE_ENV === "development" || process.env.INCLUDE_NEXT
+              ? ["current", "1.6"]
+              : ["1.6"],
+          // Exclude agent-internal work artifacts from the published site.
+          // docs/plans/ holds implementation plans authored for agent execution;
+          // they are not user-facing documentation and their internal cross-link
+          // style is not Docusaurus-resolvable.
+          exclude: ["plans/**"],
           // Please change this to your repo.
           // Remove this to remove the "edit this page" links.
           editUrl:
@@ -86,6 +107,10 @@ const config: Config = {
           label: "Docs",
         },
         { to: "/blog", label: "Blog", position: "left" },
+        {
+          type: "docsVersionDropdown",
+          position: "right",
+        },
         {
           href: "https://github.com/sponsors/dm-p",
           label: "Sponsor",

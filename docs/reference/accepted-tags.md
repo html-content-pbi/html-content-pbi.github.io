@@ -1,13 +1,13 @@
 ---
 sidebar_position: 200
-description: The set of HTML and SVG tags accepted by HTML Content (lite), the certified edition of the visual.
+description: The set of HTML and SVG tags accepted by HTML Content Secure, the certified edition of the visual.
 slug: /accepted-tags
 ---
 
 # Accepted Tags 🛡️
 
 :::note Certified Visual Only
-This page applies to [HTML Content (lite)](visual-editions#lite-certified), the certified edition of the visual.
+This page applies to [**HTML Content Secure**](visual-editions#lite-certified), the certified edition of the visual (named _HTML Content (lite)_ prior to 2.0).
 
 The regular [HTML Content](visual-editions#regular) edition does **not** filter your content for tags - it passes values through to the Power BI custom-visual sandbox and relies on the sandbox as its only line of defense. This is the key behavioral difference between the two editions.
 
@@ -287,17 +287,18 @@ Also see [Sanitization](sanitization) for how content is filtered within allowed
   </tr>
 </table>
 
-\* `<img/>` can be used with [data URLs](https://developer.mozilla.org/en-US/docs/web/http/basics_of_http/data_urls).
- - Content cannot be loaded from remote endpoints, in order to comply with visual certification rules.
- - For raster image MIME types (`image/png`, `image/jpeg`, `image/gif`, `image/webp`, `image/bmp`) the URL must be base64-encoded (`data:image/png;base64,…`); plain-text variants are rejected.
- - From version 1.6.1 onwards, `data:image/svg+xml` is also permitted and accepts `;base64,`, `;utf8,`, and bare-comma forms; the inner SVG is recursively scanned and `<script/>`, `<foreignObject/>`, and `<use/>` are stripped.
+\* `<img>` can be used with [data URLs](https://developer.mozilla.org/en-US/docs/web/http/basics_of_http/data_urls).
 
-All [SVG](https://developer.mozilla.org/en-US/docs/Web/SVG) tags should also be supported, with the exception of `<use/>`, `<script/>`, and `<foreignObject/>`.
+- Content cannot be loaded from remote endpoints, in order to comply with visual certification rules.
+- For raster image MIME types (`image/png`, `image/jpeg`, `image/gif`, `image/webp`, `image/bmp`) the URL must be base64-encoded (`data:image/png;base64,…`); plain-text variants are rejected.
+- From version 1.6.1 onwards, `data:image/svg+xml` is also permitted and accepts `;base64,`, `;utf8,`, and bare-comma forms; the inner SVG is recursively scanned and `<script>`, `<foreignObject>`, and `<use>` are stripped.
 
-- From version 1.6.1 onwards, SMIL animation tags (`<animate/>`, `<animateMotion/>`, `<animateTransform/>`, `<set/>`) are also permitted, with restrictions on which attributes they may target - see [Sanitization](sanitization) for the safe-target list.
+All [SVG](https://developer.mozilla.org/en-US/docs/Web/SVG) tags should also be supported, with the exception of `<use>`, `<script>`, and `<foreignObject>`.
+
+- From version 1.6.1 onwards, SMIL animation tags (`<animate>`, `<animateMotion>`, `<animateTransform>`, `<set>`) are also permitted, with restrictions on which attributes they may target - see [Sanitization](sanitization) for the safe-target list.
 
 ## See also
 
-- [Visual Editions](visual-editions) - comparison of the regular and lite editions, and guidance on choosing between them.
-- [Sanitization](sanitization) - the full set of sanitization rules that apply to content and stylesheets in the lite edition.
+- [Visual Editions](visual-editions) - comparison of the Regular and Secure editions, and guidance on choosing between them.
+- [Sanitization](sanitization) - the full set of sanitization rules that apply to content and stylesheets in the Secure edition.
 - For the canonical, machine-checked rule set with worked input/output examples, see the visual repo: [docs/sanitization-rules.md](https://github.com/dm-p/powerbi-visuals-html-content/blob/main/docs/sanitization-rules.md).
