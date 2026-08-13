@@ -12,7 +12,7 @@ This guide is valid for HTML Content 2.0 and above. Earlier versions expose a di
 
 With [Power BI Enhanced Report Format (PBIR)](https://learn.microsoft.com/en-us/power-bi/developer/projects/projects-report?WT.mc_id=DP-MVP-5003712&tabs=v2%2Cdesktop#pbir-format) becoming the default for Power BI reports, this page explains what's needed to make HTML Content features work if you're manually editing or programmatically generating visuals, or using an LLM or other tool to help generate report content (or if you're an LLM reading this page for guidance).
 
-In addition to PBIR, the details on this page may also help you understand HTML Content's internal structure better, for use when building [report themes](https://learn.microsoft.com/en-us/power-bi/create-reports/desktop-report-themes?WT.mc_id=DP-MVP-5003712) that include HTML Content visuals.
+In addition to PBIR, the details on this page may also help you better understand HTML Content's internal structure, for use when building [report themes](https://learn.microsoft.com/en-us/power-bi/create-reports/desktop-report-themes?WT.mc_id=DP-MVP-5003712) that include HTML Content visuals.
 
 ## The Short Version {#the-short-version}
 
@@ -344,7 +344,7 @@ Turning on the **Enable** toggle under cross-filtering adds `objects.crossFilter
 }
 ```
 
-Only `enabled` is written. The cross-filter card also has `useTransparency` (defaults to `true`) and `transparencyPercent` (defaults to `70`), but neither was touched in this example, so neither is persisted - Desktop only writes values that differ from the default. This is worth internalizing generally: a property's absence in captured JSON doesn't mean it's off or unset, it means it's still at its default. The [Properties Reference](#properties-reference) below documents all three defaults explicitly.
+Only `enabled` is written. The cross-filter card also has `useTransparency` (defaults to `true`) and `transparencyPercent` (defaults to `70`), but neither was touched in this example, so neither is persisted - Desktop only writes values that differ from the default. This is worth internalizing generally: a property's absence in captured JSON doesn't mean it's off or unset; it means it's still at its default. The [Properties Reference](#properties-reference) below documents all three defaults explicitly.
 
 With cross-filtering enabled and `Data[Country]` bound to Context, clicking a rendered row cross-filters the rest of the report by that row's Context fields. See [Interactivity](interactivity) for the full behavior, including unselected-item styling.
 
@@ -459,11 +459,11 @@ Properties in this group cover the [Templates](properties-templates) properties 
 
 Properties in this group cover the [Interactivity](interactivity) properties that control cross-filtering behavior and the appearance of unselected items.
 
-| Property              | Default Value (if Omitted) | Type                | Remarks                                                                                                                                                                                                                                                     |
-| --------------------- | -------------------------- | ------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `enabled`             | `false`                    | [boolean](#boolean) | Labeled **Enable** in the format pane. Enables cross-filtering of other visuals when Context is provided. The card is hidden entirely in the pane when the view model has no context columns.                                                               |
-| `useTransparency`     | `true`                     | [boolean](#boolean) | Labeled **Set transparency of unselected items** in the format pane. Toggles a `.htmlViewerEntry.unselected { opacity: ... }` rule. Only visible in the pane when `enabled` is on. As an alternative, style `.unselected` manually via a custom stylesheet. |
-| `transparencyPercent` | `70D`                      | [integer](#integer) | Labeled **Transparency** in the format pane. The transparency percentage applied to unselected items; valid values are `0D` to `100D`. Only visible in the pane when both `enabled` and `useTransparency` are on.                                           |
+| Property              | Default Value (if Omitted) | Type                | Remarks                                                                                                                                                                                                                                                 |
+| --------------------- | -------------------------- | ------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `enabled`             | `false`                    | [boolean](#boolean) | Labeled **Enable** in the format pane. Enables cross-filtering of other visuals when Context is provided. The card is hidden entirely in the pane when the view model has no context columns.                                                           |
+| `useTransparency`     | `true`                     | [boolean](#boolean) | Labeled **Set transparency of unselected items** in the format pane. Toggles a `.htmlViewerEntry.unselected { opacity: ... }` rule. Only visible in the pane when `enabled` is on. Alternatively, style `.unselected` manually via a custom stylesheet. |
+| `transparencyPercent` | `70D`                      | [integer](#integer) | Labeled **Transparency** in the format pane. The transparency percentage applied to unselected items; valid values are `0D` to `100D`. Only visible in the pane when both `enabled` and `useTransparency` are on.                                       |
 
 ### objects.compatibility {#objects-compatibility}
 
