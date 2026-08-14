@@ -91,6 +91,23 @@ const config: Config = {
     ],
   ],
 
+  plugins: [
+    [
+      "@docusaurus/plugin-content-docs",
+      {
+        // Unversioned community/process docs (early access builds, etc.).
+        // Lives outside the 1.6/2.0 versioning because the process is
+        // version-independent and must always be visible in production.
+        id: "community",
+        path: "community",
+        routeBasePath: "community",
+        sidebarPath: "./sidebarsCommunity.ts",
+        editUrl:
+          "https://github.com/html-content-pbi/html-content-pbi.github.io/tree/main",
+      },
+    ],
+  ],
+
   themeConfig: {
     // Replace with your project's social card
     image: "img/docusaurus-social-card.jpg",
@@ -108,6 +125,7 @@ const config: Config = {
           label: "Docs",
         },
         { to: "/blog", label: "Blog", position: "left" },
+        { to: "/community/early-access", label: "Community", position: "left" },
         {
           type: "docsVersionDropdown",
           position: "right",
