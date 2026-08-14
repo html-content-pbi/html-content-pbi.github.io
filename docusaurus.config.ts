@@ -47,14 +47,9 @@ const config: Config = {
               noIndex: true,
             },
           },
-          // ponytail: next is dev-only — production builds ship 1.6 alone, so it
-          // never appears in the version dropdown. To publish next later, add
-          // "current" to the production list (or drop onlyIncludeVersions).
-          // INCLUDE_NEXT=1 forces next into a build so its links get checked.
-          onlyIncludeVersions:
-            process.env.NODE_ENV === "development" || process.env.INCLUDE_NEXT
-              ? ["current", "1.6"]
-              : ["1.6"],
+          // 2.0 (current) ships alongside 1.6 and appears in the version
+          // dropdown for beta testing. It keeps the unreleased banner and
+          // noIndex until it becomes the published baseline.
           // Exclude agent-internal work artifacts from the published site.
           // docs/plans/ holds implementation plans authored for agent execution;
           // they are not user-facing documentation and their internal cross-link
@@ -91,6 +86,23 @@ const config: Config = {
     ],
   ],
 
+  plugins: [
+    [
+      "@docusaurus/plugin-content-docs",
+      {
+        // Unversioned community/process docs (early access builds, etc.).
+        // Lives outside the 1.6/2.0 versioning because the process is
+        // version-independent and must always be visible in production.
+        id: "community",
+        path: "community",
+        routeBasePath: "community",
+        sidebarPath: "./sidebarsCommunity.ts",
+        editUrl:
+          "https://github.com/html-content-pbi/html-content-pbi.github.io/tree/main",
+      },
+    ],
+  ],
+
   themeConfig: {
     // Replace with your project's social card
     image: "img/docusaurus-social-card.jpg",
@@ -108,6 +120,7 @@ const config: Config = {
           label: "Docs",
         },
         { to: "/blog", label: "Blog", position: "left" },
+        { to: "/community/early-access", label: "Community", position: "left" },
         {
           type: "docsVersionDropdown",
           position: "right",

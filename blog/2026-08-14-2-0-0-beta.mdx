@@ -1,0 +1,94 @@
+---
+slug: v2-beta
+title: HTML Content 2.0 Available for Beta Testing
+authors: [daniel]
+tags: [releases, testing, beta]
+image: /img/blog/v2-beta-testing.png
+---
+
+HTML Content 2.0 is the biggest update to the visual so far - new layout tooling, debugging support, and theme integration, all focused on giving authors more control over their work. Before we submit to AppSource, we need your help to validate this release with real-world reports and make sure it holds up to how you actually use it.
+
+{/* truncate */}
+
+## The Importance of Beta Testing
+
+### HTML Content is Widely Used
+
+Similar to [Deneb](https://deneb.guide/), HTML Content solves many common challenges and, as such, receives many downloads. In the last 4 months, this was **~175K** developers across **~52K** companies for both the regular and certified editions. These numbers don't include how many of your readers see an HTML Content visual in a report or dashboard, but from developer adoption alone, that's a lot of people that we can have a potentially negative impact on if something goes wrong.
+
+### HTML Content is Free and Open Source
+
+I provide the visuals for free, and fund all development and support time and costs through my own income - there's no sponsorship or support agreements to help keep the lights on. As such, any time I have available is very limited. While I do my own quality assurance testing and dogfooding, I don't have the resources to research and collect real-world cases, and as many of these are often hidden behind an organization's confidential IP, I don't find out about most of the scenarios in which HTML Content is used.
+
+### Submission is a "Point of No Return" for Fast Remediation
+
+**Once we submit to AppSource, we're locked into a lengthy certification cycle that is difficult to roll back.** If a bug slips through that affects your reports, that's potentially weeks before a fix reaches you and your readers. Your involvement in beta testing (if you can spare it) helps the entire community get a solid release first time.
+
+### What Makes This Release Different
+
+Unlike a maintenance release, 2.0 changes how content is rendered by default - and existing reports must keep rendering identically. Visuals migrated from v1.x are automatically kept on [legacy rendering](/docs/next/properties-compatibility), and validating that this migration behaves seamlessly across real reports is one of the biggest things beta testing can prove out.
+
+## What's New in 2.0
+
+The full detail is in the [Change Log](/docs/next/change-log), but here's a quick digest:
+
+- **[Templates](/docs/next/properties-templates)** - wrap your rows in a shared HTML shell (body and row templates), so your measures only need to produce per-row markup.
+- **[Diagnostics](/docs/next/diagnostics)** - an in-visual dialog showing the processed raw HTML, sanitizer removals, captured console output, and host events. Power BI has no dev tools, so now the visual brings its own.
+- **[Theme colors](/docs/next/theme-colors)** - the report theme's palette exposed as `--pbi-theme-*` CSS variables, live-updating on theme and high-contrast changes.
+- **[Render modes](/docs/next/properties-content-formatting#on-data-update)** - choose whether updates rebuild everything or preserve unchanged rows (keeping iframes, inputs, and script state intact).
+- **[Scripting guidelines](/docs/next/scripting)** - scripting approaches for the Regular edition are now documented, with recommended patterns and debugging support.
+- **[Legacy rendering compatibility](/docs/next/properties-compatibility)** - reports migrated from v1.x keep rendering exactly as they did; new visuals get modern defaults.
+
+The documentation has also been completely rewritten to focus on the "2.0 way" of doing things, including a [revised simple worked example](/docs/next/simple-example).
+
+## What We Need From You
+
+### 1. Validate Your Existing Reports
+
+Open copies of your existing reports with the beta and confirm they render identically to 1.6 - migrated visuals should switch to legacy rendering automatically, with no visible change. This is the single most valuable test you can run.
+
+### 2. Try the New Features
+
+The updated [Simple Worked Example](/docs/next/simple-example) (with a downloadable sample workbook) is a good on-ramp for templates and the new properties.
+
+### 3. Provide Detailed Feedback if Something's Wrong
+
+When something doesn't work as expected, detail makes all the difference:
+
+- **The full package filename** (e.g. `HTML-Content.2.0.0.beta-1.pbiviz`) and the **in-visual version** shown on the landing page and in the visual's _About_ dialog (e.g. `2.0.0.20260813#5f7ca17e`) - [these identify your exact build](/community/early-access#identifying-your-build)
+- **Steps to reproduce** the issue
+- **Expected vs. actual behavior** - ideally including how it differs from 1.6
+- **Screenshots or short videos** showing the problem
+- **Sample content/measures or a workbook** (with public/anonymized data)
+
+The more detail you can provide, the faster we can identify and resolve issues. Since I'm doing everything development-wise, as much detail as possible will help me reproduce the problem and find it, which means more time to fix it and turn around updates. Please don't assume someone else has already reported it. If you see it, please [create an issue](https://github.com/dm-p/powerbi-visuals-html-content/issues) or add to an existing one.
+
+## How to Access the Beta
+
+The beta build is published to the [`beta` release tag](https://github.com/dm-p/powerbi-visuals-html-content/releases/tag/beta) in the visual's GitHub repository, with both editions attached as `.pbiviz` packages - HTML Content and HTML Content Secure. Download the package(s) you use and [import them into your report](https://learn.microsoft.com/en-us/power-bi/developer/visuals/import-visual#import-a-visual-file-from-your-local-computer-into-power-bi). Beta builds use their own visual IDs, so they install alongside the AppSource 1.6 visuals without touching them, and they do not auto-update.
+
+The [Early Access Builds](/community/early-access) page covers the full process - channels, installation, identifying your build, and what makes for useful feedback.
+
+:::warning Test with copies
+Test with **copies** of production reports, not the originals - that way you can easily revert without losing any work.
+:::
+
+## Planned Timeline
+
+Backward compatibility and the preservation of existing visual output are the highest priorities. Assuming we have nothing that creates a significant block in this area, then the intended plan is as follows:
+
+- **Beta testing period:** Starting now, aiming for 3-4 weeks of community validation
+- **Submission to AppSource:** Mid to end September 2026 (assuming no blocking issues)
+- **General availability:** Depending on Microsoft's certification timeline, likely mid to late October
+
+Major blockers will delay this timeline, but I'll try to communicate any major deviations/disruptions if they occur.
+
+## Thank You!
+
+It's a huge ask of you to help test, but this is one of the hidden costs of something being free to use. Any assistance you can provide is a massive step towards ensuring that HTML Content continues to work as expected for a global audience and our community in general.
+
+Thank you, as always, for your continued support, and I hope the new features in this release will help you do even more in Power BI!
+
+All the best,
+
+DM-P

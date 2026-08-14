@@ -23,9 +23,9 @@ jobs:
       - name: Install dependencies
         run: yarn install --frozen-lockfile
       - name: Build website
-        # INCLUDE_NEXT publishes the 2.0 docs at /docs/next for pre-release
-        # testing; they are noIndex'd and hidden from the version dropdown.
-        run: INCLUDE_NEXT=1 yarn build
+        # 2.0 docs publish at /docs/next (noIndex'd, unreleased banner) and
+        # appear in the version dropdown for beta testing.
+        run: yarn build
 
       - name: Upload Build Artifact
         uses: actions/upload-pages-artifact@v3
