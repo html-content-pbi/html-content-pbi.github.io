@@ -42,7 +42,7 @@ Link-integrity: as a docs-plugin instance, the community section is covered by t
 
 ### Dependency: production must include `/docs/next`
 
-The page (and the blog post) deliberately point testers at the 2.0 working docs under `/docs/next`. This is already satisfied: the deploy workflow builds with `INCLUDE_NEXT=1` (`.github/workflows/deploy.yml`), so `/docs/next` is live in production. Consequence: `INCLUDE_NEXT=1 npm run build` becomes the canonical local build command - a plain build (1.6 only) fails by design once content linking into `/docs/next` lands, and AGENTS.md gets a note saying so.
+The page (and the blog post) deliberately point testers at the 2.0 working docs under `/docs/next`. This is already satisfied: the deploy workflow builds with `INCLUDE_NEXT=1` (`.github/workflows/deploy.yml`), so `/docs/next` is live in production. Consequence: `INCLUDE_NEXT=1 npm run build` becomes the canonical local build command - a plain build (1.6 only) fails by design once content linking into `/docs/next` lands, and AGENTS.md gets a note saying so. *(Superseded 2026-08-14: the version gate and `INCLUDE_NEXT` flag were removed entirely when 2.0 was opened in the version dropdown for beta - plain builds now include both versions.)*
 
 ## 2. Page content: `community/early-access.mdx`
 
@@ -75,6 +75,7 @@ Left as TODOs (editorial, not page-dependent): "why beta matters" framing tweak 
 
 - `INCLUDE_NEXT=1 npm run build` exits 0 with zero broken-link errors (production parity; a plain build fails by design on `/docs/next` links).
 - Zero markdown-link warnings on touched files: `INCLUDE_NEXT=1 npm run build 2>&1 | grep -iE "warn|broken"`.
+- *(Superseded 2026-08-14: `INCLUDE_NEXT` removed; plain `npm run build` now covers both versions and is the build gate.)*
 - `npm start` spot-check: Community navbar item and sidebar render; cross-links from community page and blog post resolve.
 
 ## Out of scope

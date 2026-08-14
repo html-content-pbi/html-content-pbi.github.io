@@ -12,6 +12,8 @@
 
 **Working branch:** `docs/early-access-builds`.
 
+> **Post-implementation amendments (2026-08-14):** the `INCLUDE_NEXT` build gate referenced throughout was removed when 2.0 was opened in the version dropdown for beta testing - plain `npm run build` now includes both docs versions and is the build gate (a companion CSS rule hiding `/docs/next` from the dropdown was removed at the same time). The blog post also moved to `blog/2026-08-14-2-0-0-beta.mdx` with slug `v2-beta`.
+
 **Conventions that bind every task (from AGENTS.md):**
 
 - Build gate: `INCLUDE_NEXT=1 npm run build` must exit 0 AND emit zero broken/warn lines for touched files (`npm run build 2>&1 | grep -iE "warn|broken"`). Plain `npm run build` (without `INCLUDE_NEXT`) is expected to FAIL once these pages land, because published content now links into `/docs/next` - that is by design and documented in Task 3.
