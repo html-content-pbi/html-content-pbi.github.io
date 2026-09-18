@@ -58,10 +58,6 @@ You can now specify whether to render your content using HTML (default) or Markd
 
 ### HTML Content (lite)-Specific Changes (2026-04-25)
 
-<!-- :::info Pending Approval
-**HTML Content (lite)** is still under Microsoft's certification review. The changes below will apply once it has been approved; the regular edition is already live.
-::: -->
-
 #### Stricter Content Sanitization
 
 Ongoing refinement of Microsoft's custom-visual certification rules has driven a round of sanitization tightening. A [Sanitization](sanitization) page has also been added to fully document this and keep track of things as these rules are updated.
