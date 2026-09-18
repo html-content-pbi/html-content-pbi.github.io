@@ -136,6 +136,11 @@ const config: Config = {
           position: "right",
         },
         {
+          href: "/enterprise",
+          label: "Enterprise FAQ",
+          position: "right",
+        },
+        {
           href: "https://github.com/dm-p/powerbi-visuals-html-content",
           label: "GitHub",
           position: "right",
@@ -145,7 +150,7 @@ const config: Config = {
     footer: {
       style: "dark",
       links: [],
-      copyright: `HTML Content and HTML Content (lite) are released under the MIT License.`,
+      copyright: `HTML Content and HTML Content Secure are released under the MIT License.`,
     },
     prism: {
       theme: prismThemes.github,
