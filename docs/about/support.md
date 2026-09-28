@@ -12,6 +12,8 @@ Firstly, thanks very much for using the visual! I've had a lot of feedback since
 
 HTML Content is released under the [MIT License](https://en.wikipedia.org/wiki/MIT_License) and is free of charge and [open source](https://github.com/dm-p/powerbi-visuals-html-content).
 
+Questions about security, data privacy, certification, and long-term continuity are answered on the [Enterprise and Security FAQ](/enterprise), which is written to be shared with IT and security teams.
+
 The visual does its best to render whatever content you supply to it, but [there are a number of limitations imposed upon it by Power BI](limitations) that we cannot do much about. Please review this page first to determine if what you are attempting does not work for these reasons.
 
 I maintain the visual in my free time, so if you still experience issues beyond the limitations detailed above or have a particular feature request, please create an issue in the project's GitHub repository (https://github.com/dm-p/powerbi-visuals-html-content/issues), and I will endeavor to investigate and respond as soon as possible.

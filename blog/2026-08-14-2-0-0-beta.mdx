@@ -26,20 +26,20 @@ I provide the visuals for free, and fund all development and support time and co
 
 ### What Makes This Release Different
 
-Unlike a maintenance release, 2.0 changes how content is rendered by default - and existing reports must keep rendering identically. Visuals migrated from v1.x are automatically kept on [legacy rendering](/docs/next/properties-compatibility), and validating that this migration behaves seamlessly across real reports is one of the biggest things beta testing can prove out.
+Unlike a maintenance release, 2.0 changes how content is rendered by default - and existing reports must keep rendering identically. Visuals migrated from v1.x are automatically kept on [legacy rendering](/docs/properties-compatibility), and validating that this migration behaves seamlessly across real reports is one of the biggest things beta testing can prove out.
 
 ## What's New in 2.0
 
-The full detail is in the [Change Log](/docs/next/change-log), but here's a quick digest:
+The full detail is in the [Change Log](/docs/change-log), but here's a quick digest:
 
-- **[Templates](/docs/next/properties-templates)** - wrap your rows in a shared HTML shell (body and row templates), so your measures only need to produce per-row markup.
-- **[Diagnostics](/docs/next/diagnostics)** - an in-visual dialog showing the processed raw HTML, sanitizer removals, captured console output, and host events. Power BI has no dev tools, so now the visual brings its own.
-- **[Theme colors](/docs/next/theme-colors)** - the report theme's palette exposed as `--pbi-theme-*` CSS variables, live-updating on theme and high-contrast changes.
-- **[Render modes](/docs/next/properties-content-formatting#on-data-update)** - choose whether updates rebuild everything or preserve unchanged rows (keeping iframes, inputs, and script state intact).
-- **[Scripting guidelines](/docs/next/scripting)** - scripting approaches for the Regular edition are now documented, with recommended patterns and debugging support.
-- **[Legacy rendering compatibility](/docs/next/properties-compatibility)** - reports migrated from v1.x keep rendering exactly as they did; new visuals get modern defaults.
+- **[Templates](/docs/properties-templates)** - wrap your rows in a shared HTML shell (body and row templates), so your measures only need to produce per-row markup.
+- **[Diagnostics](/docs/diagnostics)** - an in-visual dialog showing the processed raw HTML, sanitizer removals, captured console output, and host events. Power BI has no dev tools, so now the visual brings its own.
+- **[Theme colors](/docs/theme-colors)** - the report theme's palette exposed as `--pbi-theme-*` CSS variables, live-updating on theme and high-contrast changes.
+- **[Render modes](/docs/properties-content-formatting#on-data-update)** - choose whether updates rebuild everything or preserve unchanged rows (keeping iframes, inputs, and script state intact).
+- **[Scripting guidelines](/docs/scripting)** - scripting approaches for the Regular edition are now documented, with recommended patterns and debugging support.
+- **[Legacy rendering compatibility](/docs/properties-compatibility)** - reports migrated from v1.x keep rendering exactly as they did; new visuals get modern defaults.
 
-The documentation has also been completely rewritten to focus on the "2.0 way" of doing things, including a [revised simple worked example](/docs/next/simple-example).
+The documentation has also been completely rewritten to focus on the "2.0 way" of doing things, including a [revised simple worked example](/docs/simple-example).
 
 ## What We Need From You
 
@@ -49,7 +49,7 @@ Open copies of your existing reports with the beta and confirm they render ident
 
 ### 2. Try the New Features
 
-The updated [Simple Worked Example](/docs/next/simple-example) (with a downloadable sample workbook) is a good on-ramp for templates and the new properties.
+The updated [Simple Worked Example](/docs/simple-example) (with a downloadable sample workbook) is a good on-ramp for templates and the new properties.
 
 ### 3. Provide Detailed Feedback if Something's Wrong
 

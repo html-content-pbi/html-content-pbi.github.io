@@ -38,18 +38,16 @@ const config: Config = {
       {
         docs: {
           sidebarPath: "./sidebars.ts",
-          // 1.6 is the published baseline; docs/ is the "next" working copy.
-          lastVersion: "1.6",
+          // 2.0 is the published baseline and lives in docs/ (served at /docs).
+          // 1.6 is the previous snapshot at /docs/1.6. When work on the next
+          // version starts, snapshot 2.0 (`docusaurus docs:version 2.0`), set
+          // lastVersion to "2.0", and relabel current as the working copy.
+          lastVersion: "current",
           versions: {
             current: {
-              label: "2.0 🚧",
-              banner: "unreleased",
-              noIndex: true,
+              label: "2.0",
             },
           },
-          // 2.0 (current) ships alongside 1.6 and appears in the version
-          // dropdown for beta testing. It keeps the unreleased banner and
-          // noIndex until it becomes the published baseline.
           // Exclude agent-internal work artifacts from the published site.
           // docs/plans/ holds implementation plans authored for agent execution;
           // they are not user-facing documentation and their internal cross-link
@@ -136,6 +134,11 @@ const config: Config = {
           position: "right",
         },
         {
+          href: "/enterprise",
+          label: "Enterprise FAQ",
+          position: "right",
+        },
+        {
           href: "https://github.com/dm-p/powerbi-visuals-html-content",
           label: "GitHub",
           position: "right",
@@ -145,7 +148,7 @@ const config: Config = {
     footer: {
       style: "dark",
       links: [],
-      copyright: `HTML Content and HTML Content (lite) are released under the MIT License.`,
+      copyright: `HTML Content and HTML Content Secure are released under the MIT License.`,
     },
     prism: {
       theme: prismThemes.github,
