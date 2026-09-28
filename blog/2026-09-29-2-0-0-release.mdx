@@ -1,0 +1,66 @@
+---
+slug: v2-release
+title: HTML Content 2.0 Released
+authors: [daniel]
+tags: [releases]
+image: /img/blog/v2-published.png
+---
+
+**HTML Content 2.0** and **HTML Content Secure 2.0** have passed AppSource review and are rolling out now! Read on for everything you need to know.
+
+{/* truncate */}
+
+## Getting 2.0
+
+Both editions are deploying through AppSource, so you don't need to do anything - reports pick up the new version automatically. Global rollout can take a couple of weeks from the publish date, so don't worry if you don't see it straight away.
+
+- [HTML Content](https://appsource.microsoft.com/en-us/product/power-bi-visuals/WA200001930) on AppSource
+- [HTML Content Secure](https://appsource.microsoft.com/en-us/product/PowerBIVisuals/coacervolimited1596856650797.htmlcontent_certified) on AppSource
+
+If you'd like to try the Regular edition ahead of the rollout or get ahead on the new changes and learn how they can work for you, a [standalone version is available from the repository](https://github.com/dm-p/powerbi-visuals-html-content/releases/tag/2.0.0.0).
+
+### Your existing reports will continue to work
+
+2.0 changes how content renders by default, so visuals migrated from 1.x are automatically switched to [legacy rendering](/docs/properties-compatibility) - same styling rules, same row structure, no visible change. Newly added visuals get the modern defaults. You can flip the setting either way at any time.
+
+## HTML Content (lite) is now HTML Content Secure 🛡️
+
+**HTML Content Secure** better reflects its purpose: the sanitized, certification-compliant build of the visual. It's the same visual on the same AppSource listing, and existing reports are unaffected. The [Visual Editions](/docs/visual-editions) page compares the two editions if you're deciding between them.
+
+## What's New in 2.0
+
+The full detail is in the [Change Log](/docs/change-log), but the headlines are as follows:
+
+- **[Templates](/docs/properties-templates)** - wrap your rows in a shared HTML shell (body and row templates), so your measures only need to produce per-row markup.
+- **[Diagnostics](/docs/diagnostics)** - an in-visual dialog showing the processed raw HTML, sanitizer removals, captured console output, and host events. Power BI has no dev tools, so now the visual brings its own.
+- **[Theme colors](/docs/theme-colors)** - the report theme's palette exposed as `--pbi-theme-*` CSS variables, live-updating on theme and high-contrast changes.
+- **[Render modes](/docs/properties-content-formatting#on-data-update)** - choose whether updates rebuild everything or preserve unchanged rows (keeping iframes, inputs, and script state intact).
+- **[Suppressing interactivity](/docs/interactivity#suppressing-interactivity)** - mark elements like modals and custom controls with `data-hc-suppress` so they don't trigger cross-filtering, context menus, or tooltips.
+- **[Scripting guidelines](/docs/scripting)** - scripting approaches for the Regular edition are now documented, with recommended patterns and debugging support.
+- **[Legacy rendering compatibility](/docs/properties-compatibility)** - reports migrated from 1.x keep rendering exactly as they did; new visuals get modern defaults.
+
+The **Granularity** data role has also been renamed [**Context**](/docs/data-roles) to better describe what it does. Behavior is unchanged.
+
+## Documentation Updates
+
+This site now shows the 2.0 documentation by default. The 1.6 documentation is still available from the version dropdown if you need it, and I'll retire this in due course as 2.0 becomes the norm.
+
+The docs have been rewritten around the "2.0 way" of doing things, including:
+
+- A [revised Simple Worked Example](/docs/simple-example) that uses templates, with a downloadable sample workbook.
+- A new [PBIR Implementation Guide](/docs/pbir-guide) for authoring HTML Content visuals directly in Power BI Project (PBIR) files.
+- A new [Enterprise and Security FAQ](/enterprise) that answers the questions IT, security, and procurement teams most often ask. It's written to share directly with them.
+
+## Thank You, Beta Testers
+
+A huge thank you to everyone who took the time to test the beta builds against their own reports and send feedback. It's a big ask for a free visual, and the release is better for it.
+
+## What's Next
+
+The [Early Access Builds](/community/early-access) program continues, so future releases will go through the same alpha and beta channels before submission. If you'd like to help test them, that page covers how to get involved.
+
+If you run into any issues with 2.0, please [create an issue](https://github.com/dm-p/powerbi-visuals-html-content/issues) with as much detail as you can - the [Support](/docs/support) page has the details.
+
+Thanks again to everyone for your support and for sharing your awesome work. I look forward to seeing what you can do now!
+
+DM-P

@@ -23,8 +23,6 @@ jobs:
       - name: Install dependencies
         run: yarn install --frozen-lockfile
       - name: Build website
-        # 2.0 docs publish at /docs/next (noIndex'd, unreleased banner) and
-        # appear in the version dropdown for beta testing.
         run: yarn build
 
       - name: Upload Build Artifact

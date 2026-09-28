@@ -50,7 +50,7 @@ The manifest is not something you have to take on trust. A `.pbiviz` package is 
 
 ## Can report content execute JavaScript? {#script-execution}
 
-**HTML Content (Regular): yes.** The Regular edition renders author-supplied content as written, which includes `<script>` elements and inline event handlers such as `onclick` and `onerror`. These execute. This is long-standing behavior rather than an oversight, and it is documented for report authors in the [Scripting guidelines](/docs/next/scripting).
+**HTML Content (Regular): yes.** The Regular edition renders author-supplied content as written, which includes `<script>` elements and inline event handlers such as `onclick` and `onerror`. These execute. This is long-standing behavior rather than an oversight, and it is documented for report authors in the [Scripting guidelines](/docs/scripting).
 
 **HTML Content Secure: no.** The sanitizer removes `<script>` elements, and any element carrying an event-handler attribute is dropped entirely. See [Sanitization](/docs/sanitization).
 
@@ -68,7 +68,7 @@ Two points matter when assessing the risk this represents:
 3. **URLs** - `href`, `src`, and `xlink:href` values are normalized and scheme-checked.
 4. **CSS** - inline `style` attributes, `<style>` blocks within content, and the visual's custom stylesheet property are all sanitized against a shared rule set.
 
-[Sanitization](/docs/sanitization) documents the rules in full, and [Accepted Tags](/docs/accepted-tags) lists the permitted elements. From version 2.0, the [Diagnostic information dialog](/docs/next/diagnostics) shows report authors exactly what the sanitizer removed from a given payload, which is also useful evidence during an internal review.
+[Sanitization](/docs/sanitization) documents the rules in full, and [Accepted Tags](/docs/accepted-tags) lists the permitted elements. From version 2.0, the [Diagnostic information dialog](/docs/diagnostics) shows report authors exactly what the sanitizer removed from a given payload, which is also useful evidence during an internal review.
 
 The Regular edition does not sanitize. It passes content through to the sandbox and relies on the sandbox as its only line of defense.
 
