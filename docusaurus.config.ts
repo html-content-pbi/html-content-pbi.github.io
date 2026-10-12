@@ -76,13 +76,13 @@ const config: Config = {
         theme: {
           customCss: "./src/css/custom.css",
         },
-        gtag: {
-          trackingID: "G-8BPRENKBZR",
-          anonymizeIP: true,
-        },
+        // No `gtag` preset option: GA loads only after consent, from
+        // src/analytics.ts (banner in src/theme/Root.tsx).
       } satisfies Preset.Options,
     ],
   ],
+
+  clientModules: ["./src/analytics.ts"],
 
   plugins: [
     [

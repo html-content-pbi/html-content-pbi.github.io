@@ -1,3 +1,5 @@
+import { resetConsent } from "@site/src/analytics";
+
 # HTML Content Privacy Policy
 
 HTML Content and its developers are committed to protecting and respecting your privacy. This page is used to inform website visitors regarding our policies with the collection, use, and disclosure of Personal Information for anyone who chooses to use the HTML Content custom visual for Power BI.
@@ -34,19 +36,27 @@ For any significant details regarding data collection and usage, please refer to
 
 ## Use of Google Analytics
 
-Our website uses Google Analytics, a web analytics service provided by Google Inc. ("Google"). Google Analytics uses cookies to help us understand how visitors interact with our site, monitor traffic, and improve our services.
+Our website uses Google Analytics, a web analytics service provided by Google LLC ("Google"). With your consent, Google Analytics uses cookies to help us understand how visitors interact with our site, monitor traffic, and improve our services.
 
-### Anonymized Data Collection
+### Consent {#consent}
 
-We are committed to protecting your privacy and ensuring that your data is handled in a secure manner. As part of our use of Google Analytics:
+Google Analytics is only loaded if you select **Accept** on the banner shown on your first visit. If you select **Decline**, or make no choice, the Google Analytics script is not loaded, no analytics cookies are set, and no data is sent to Google.
 
-- **IP Anonymization**: We anonymize IP addresses as part of our data collection process. This means that your IP address is shortened and cannot be used to identify you personally. This anonymization occurs before your data is sent to Google Analytics.
+Your choice is saved in your browser's local storage, not in a cookie. To change it, use the button below. This clears your choice and any Google Analytics cookies, then reloads the page so the banner shows again.
 
-- **Non-Personally Identifiable Information**: The data collected through Google Analytics is aggregated and anonymous. It is used solely for the purpose of analyzing site traffic and usage patterns. We do not use this data to identify individual visitors.
+<p><button className="button button--secondary" onClick={resetConsent}>Change cookie preferences</button></p>
+
+### What We Collect
+
+If you accept, Google Analytics sets first-party cookies (`_ga` and `_ga_<id>`) and collects details such as the pages you visit, your approximate location, your device and browser type, and the site that referred you.
+
+- **IP Addresses**: Google Analytics does not log or store IP addresses. Google uses your IP address to derive an approximate location and then discards it.
+
+- **Aggregate Use Only**: We use this data in aggregate, solely to analyze site traffic and usage patterns. We do not use it to identify individual visitors, and we do not use it for advertising.
 
 ### Opt-Out
 
-If you prefer not to have your data collected by Google Analytics, you can opt-out by installing the [Google Analytics Opt-out Browser Add-on](https://tools.google.com/dlpage/gaoptout).
+You can also block Google Analytics on every website by installing the [Google Analytics Opt-out Browser Add-on](https://tools.google.com/dlpage/gaoptout).
 
 For more information about how Google handles data collected for Google Analytics, please review Google's [Privacy Policy](https://policies.google.com/privacy).
 
