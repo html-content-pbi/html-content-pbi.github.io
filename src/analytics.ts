@@ -25,6 +25,13 @@ const loadAnalytics = () => {
     // gtag.js expects the arguments object itself, not an array
     dataLayer.push(arguments);
   };
+  // Consent covers analytics only; keep Google's ad features off
+  window.gtag("consent", "default", {
+    analytics_storage: "granted",
+    ad_storage: "denied",
+    ad_user_data: "denied",
+    ad_personalization: "denied",
+  });
   window.gtag("js", new Date());
   window.gtag("config", MEASUREMENT_ID);
   const script = document.createElement("script");
