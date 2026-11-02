@@ -10,7 +10,7 @@ import ReleaseStatus from "@site/src/components/ReleaseStatus";
 
 ## 2.0.0 (2026-09-24)
 
-<ReleaseStatus version="2.0.0" stage="deploying" />
+<ReleaseStatus version="2.0.0" stage="" />
 
 The biggest update to the visual so far, focused on giving authors more control over layout, rendering, and debugging.
 
